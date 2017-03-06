@@ -1,4 +1,4 @@
-
+#
 #集群规划：
 主机名		IP			安装的软件					运行的进程
 master1 	192.168.1.111	jdk、hadoop、hbase、hive、spark			DataNode、NameNode、NodeManager、DFSZKFailoverController(zkfc)、ResourceManager、Hmaster、master、worker
@@ -84,7 +84,10 @@ c、authorized_keys两台机器时都要导入
 hadoop => core-stie.xml hdfs-site.xml yarn-site.xml mapred-site.xml yarn-env.sh hadoop-env.sh
 zookeeper => zoo.cfg,myid
 hive => hive-site.xml(hdfs-site.xml、core-site.xml放入$HIVE_HOME/conf)
+hive 报错期望路径与得到 路径不一致,进入mysql中hive.SBS和hive.DBS更换路径
 hbase => 
+sqoop => 注意报错javaUnkownHost把hadoop配置文件(core-site.xml/hdfs-site.xml)放到sqoop/conf下
+spark => sparksql找不到hive元数据位置两种可能（1、metastore\hiveserver2服务未开启;2、spark/conf中放入core-site.xml和hdfs-site.xml并于spark-defaults.conf中告知spark.files file:///home/yanbin/hadoop-2.6/spark/conf/hdfs-site.xml,file:///home/yanbin/hadoop-2.6/spark/conf/core-site.xml）
 ---------------------------------------------------------------------------------
 
 /etc/profile內容:
