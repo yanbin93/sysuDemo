@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app id="WebApp_ID">
+	<display-name>hongyuan</display-name>
+  <servlet>
+    <servlet-name>FindMenu</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>servlet.FindMenu</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>MenuAdd</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>servlet.MenuAdd</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ShoppingCl</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>servlet.ShoppingCl</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GoMenuList</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>servlet.GoMenuList</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GoOrderServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>servlet.GoOrderServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CheckUser</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>servlet.CheckUser</servlet-class>
+  </servlet>
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>FindMenu</servlet-name>
+    <url-pattern>/FindMenu</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MenuAdd</servlet-name>
+    <url-pattern>/MenuAdd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ShoppingCl</servlet-name>
+    <url-pattern>/ShoppingCl</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GoMenuList</servlet-name>
+    <url-pattern>/GoMenuList</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GoOrderServlet</servlet-name>
+    <url-pattern>/GoOrderServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckUser</servlet-name>
+    <url-pattern>/CheckUser</url-pattern>
+  </servlet-mapping>
+	<welcome-file-list>
+		<welcome-file>Login.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
