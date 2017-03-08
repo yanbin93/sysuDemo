@@ -6,14 +6,15 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-
 import model.*;
-
-
+import hive.JDBCToHiveUtils;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 
 
 public class CheckUser extends HttpServlet {
@@ -51,19 +52,21 @@ public class CheckUser extends HttpServlet {
 			response.setContentType("text/html;charset=utf-8"); 
 			request.setCharacterEncoding("utf-8"); 
 			PrintWriter out= response.getWriter();
-			DBconn conn=new DBconn();
+			//DBconn conn=new DBconn();
+			java.sql.Connection hiveConn =JDBCToHiveUtils.getConnnection();
 			MD5 md=new MD5();
 			String username=request.getParameter("username");
 			String pwd=request.getParameter("password");
-			//String file = request.getParameter("file");
-			//System.out.println(this.getServletContext().getRealPath(file));
-		
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
 			String sql="select * from username";
-			ResultSet rs=conn.doSelect(sql);
-			System.out.println("查询用户成功");
+			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
+			ResultSet rs;
 			boolean flag = false;
-				try {
+			try {
+				rs = ps.executeQuery();
+				//int columns=rs.getMetaData().getColumnCount();
+				System.out.println("查询用户成功");
+				
 					while(rs.next()){
 						if ((username.equals(rs.getString("username")))&&(pwd.equals(rs.getString("password")))){
 							flag=true;
@@ -71,14 +74,17 @@ public class CheckUser extends HttpServlet {
 						}
 					}
 					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				if(flag){request.getRequestDispatcher("homepage.jsp").forward(request, response);
+				if(flag){
+					request.getRequestDispatcher("homepage.jsp").forward(request, response);
 				}else{
-				request.getRequestDispatcher("Error.jsp").forward(request, response);}
+				request.getRequestDispatcher("Error.jsp").forward(request, response);
+				}
+			
 	}
-
 	/**
 	 * Initialization of the servlet. <br>
 	 *
@@ -86,5 +92,4 @@ public class CheckUser extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 	}
-
-}
+	}

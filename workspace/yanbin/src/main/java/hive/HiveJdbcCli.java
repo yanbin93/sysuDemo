@@ -98,7 +98,7 @@ public class HiveJdbcCli {
 	}
 
 	private static void loadData(Statement stmt, String tableName) throws SQLException {
-		String filepath = "/home/hadoop01/data";
+		String filepath = "/home/yanbin/data/test.txt";
 		sql = "load data local inpath '" + filepath + "' into table " + tableName;
 		System.out.println("Running:" + sql);
 		res = stmt.executeQuery(sql);
