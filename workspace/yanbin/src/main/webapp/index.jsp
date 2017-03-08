@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta http-equiv="refresh" content="1;url=login.jsp">
+<title>Index</title>
 </head>
 <body>
-hello world
+1s later turn to login.jsp
 </body>
 </html>
