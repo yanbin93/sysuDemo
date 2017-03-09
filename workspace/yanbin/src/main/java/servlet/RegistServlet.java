@@ -36,17 +36,50 @@ public class RegistServlet extends HttpServlet {
 	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.setContentType("text/html;charset=utf-8"); 
-		request.setCharacterEncoding("utf-8"); 
-		PrintWriter out= response.getWriter();
-			DBconn conn=new DBconn();
-			String username=request.getParameter("userName");
-			String password=request.getParameter("password");
+		this.doGet(request, response);
+	}
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+			response.setContentType("text/html;charset=utf-8"); 
+			request.setCharacterEncoding("utf-8"); 
+			PrintWriter out= response.getWriter();
+			//DBconn conn=new DBconn();
+			java.sql.Connection hiveConn =JDBCToHiveUtils.getConnnection();
 			MD5 md=new MD5();
-			password =md.EncryptionStr32(password, "MD5", "UTF-8");
-			String sql="insert into username(username,password)values('"+username+"','"+password+"')";
-		 	conn.doInsert(sql);
-		 	request.getRequestDispatcher("login.jsp").forward(request, response);
+			String username=request.getParameter("usernamesignup");
+			String pwd=request.getParameter("passwordsignup");
+			String email=request.getParameter("emailsignup");
+			String email=request.getParameter("othersignin");
+			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
+			String sql="insert into table username values (?,?,?,?)";
+			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
+			ResultSet rs;
+			boolean flag = false;
+			try {
+				ps.setString(1,username);
+				rs = ps.executeUpdate(sql);
+				//int columns=rs.getMetaData().getColumnCount();
+				System.out.println("查询用户成功");
+				
+					while(rs.next()){
+						System.out.println(rs.getString("username"));
+						System.out.println(rs.getString("password"));
+						if ((username.equals(rs.getString("username")))&&(pwd.equals(rs.getString("password")))){
+							flag=true;
+							break;
+						}
+					}
+					rs.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if(flag){
+					request.getRequestDispatcher("homepage.jsp").forward(request, response);
+				}else{
+				request.getRequestDispatcher("Error.jsp").forward(request, response);
+				}
+			
 	}
 
 	/**

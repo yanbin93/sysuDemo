@@ -68,6 +68,8 @@ public class CheckUser extends HttpServlet {
 				System.out.println("查询用户成功");
 				
 					while(rs.next()){
+						System.out.println(rs.getString("username"));
+						System.out.println(rs.getString("password"));
 						if ((username.equals(rs.getString("username")))&&(pwd.equals(rs.getString("password")))){
 							flag=true;
 							break;
