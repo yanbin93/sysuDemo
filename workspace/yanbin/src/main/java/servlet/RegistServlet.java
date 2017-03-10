@@ -53,9 +53,9 @@ public class RegistServlet extends HttpServlet {
 			String username=request.getParameter("usernamesignup");
 			String pwd=request.getParameter("passwordsignup");
 			String email=request.getParameter("emailsignup");
-			String other=request.getParameter("othersignin");
+			//String other=request.getParameter("othersignin");
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
-			String sql="insert into table username values (?,?,null,?)";
+			String sql="insert into table usernameTest values (?,?,"+null+",?)";
 			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
 			int rs;
 			boolean flag = false;
@@ -64,7 +64,8 @@ public class RegistServlet extends HttpServlet {
 				ps.setString(2,pwd);
 				// ps.setString(3,int);
 				ps.setString(3,email);
-				rs = ps.executeUpdate(sql);
+				rs = ps.executeUpdate();
+				flag = true;
 				if (rs>0){
 				System.out.println("添加用户成功");
 				}
@@ -75,7 +76,7 @@ public class RegistServlet extends HttpServlet {
 				if(flag){
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				}else{
- 				request.getRequestDispatcher("login.jsp").forward(request, response);
+ 				request.getRequestDispatcher("Error.jsp").forward(request, response);
 				}
 	}
 

@@ -58,7 +58,7 @@ public class CheckUser extends HttpServlet {
 			String username=request.getParameter("username");
 			String pwd=request.getParameter("password");
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
-			String sql="select * from username";
+			String sql="select * from usernameTest";
 			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
 			ResultSet rs;
 			boolean flag = false;
@@ -66,11 +66,11 @@ public class CheckUser extends HttpServlet {
 				rs = ps.executeQuery();
 				//int columns=rs.getMetaData().getColumnCount();
 				System.out.println("查询用户成功");
-				
 					while(rs.next()){
-						System.out.println(rs.getString("username"));
-						System.out.println(rs.getString("password"));
+						//System.out.println(rs.getString("username"));
+						//System.out.println(rs.getString("password"));
 						if ((username.equals(rs.getString("username")))&&(pwd.equals(rs.getString("password")))){
+							System.out.println("匹配成功！");
 							flag=true;
 							break;
 						}
