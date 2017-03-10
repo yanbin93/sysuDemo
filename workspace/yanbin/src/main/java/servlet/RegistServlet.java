@@ -1,11 +1,15 @@
 package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.*;
+import hive.*;
 
 public class RegistServlet extends HttpServlet {
 
@@ -53,25 +57,17 @@ public class RegistServlet extends HttpServlet {
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
 			String sql="insert into table username values (?,?,null,?)";
 			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
-			ResultSet rs;
+			int rs;
 			boolean flag = false;
 			try {
 				ps.setString(1,username);
-				ps.setString(2,password);
+				ps.setString(2,pwd);
 				// ps.setString(3,int);
 				ps.setString(3,email);
 				rs = ps.executeUpdate(sql);
-				//int columns=rs.getMetaData().getColumnCount();
-				System.out.println("添加用户成功")
-				// 	while(rs.next()){
-				// 		System.out.println(rs.getString("username"));
-				// 		System.out.println(rs.getString("password"));
-				// 		if ((username.equals(rs.getString("username")))&&(pwd.equals(rs.getString("password")))){
-				// 			flag=true;
-				// 			break;
-				// 		}
-				// 	}
-				rs.close();
+				if (rs>0){
+				System.out.println("添加用户成功");
+				}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
