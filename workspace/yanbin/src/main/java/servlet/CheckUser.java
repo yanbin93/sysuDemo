@@ -58,28 +58,38 @@ public class CheckUser extends HttpServlet {
 			String username=request.getParameter("username");
 			String pwd=request.getParameter("password");
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
-			String sql="select * from usernameTest";
+			String sql="select * from nametest where username=? and password=?";  
 			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
-			ResultSet rs;
+			ResultSet rs=null;
 			boolean flag = false;
 			try {
-				rs = ps.executeQuery();
-				//int columns=rs.getMetaData().getColumnCount();
-				System.out.println("查询用户成功");
-					while(rs.next()){
-						//System.out.println(rs.getString("username"));
-						//System.out.println(rs.getString("password"));
-						if ((username.equals(rs.getString("username")))&&(pwd.equals(rs.getString("password")))){
-							System.out.println("匹配成功！");
-							flag=true;
-							break;
-						}
-					}
-					rs.close();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				ps.setString(1,username);
+				ps.setString(2,pwd);
+				rs=ps.executeQuery();
+				if(rs.next()){flag=true;}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+		  
+//			try {
+//				rs = ps.executeQuery(sql);
+//				//int columns=rs.getMetaData().getColumnCount();
+//				System.out.println("查询用户成功");
+//					while(rs.next()){
+//						//System.out.println(rs.getString("username"));
+//						//System.out.println(rs.getString("password"));
+//						if ((username.equals(rs.getString("username")))&&(pwd.equals(rs.getString("password")))){
+//							System.out.println("匹配成功！");
+//							flag=true;
+//							break;
+//						}
+//					}
+//					rs.close();
+//				} catch (SQLException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 				if(flag){
 					request.getRequestDispatcher("homepage.jsp").forward(request, response);
 				}else{

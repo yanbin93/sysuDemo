@@ -11,11 +11,9 @@ import model.MD5;
 public class HiveQueryTest {
 	static boolean flag = false;
 	 public static void main(String[] args){
-		 insert();
-		 
+		 test();
 	 }
-	 
-	public static void test(String[] args) {
+	public static void test() {
 		Scanner scanner = new Scanner(System.in);// 创建输入流扫描器
 		System.out.println("请输入sql：");// 提示用户输入
 		String sql = scanner.nextLine();// 获取用户输入的一行文本
@@ -44,11 +42,11 @@ public class HiveQueryTest {
 		}
 	}
 	public static void insert(){
-		String username="sb";
-		String pwd="123";
-		String email="@qq.com";
+		String username="yanbin";
+		String pwd="0000";
+		String email="1010652868@qq.com";
 		pwd =MD5.EncryptionStr32(pwd, "MD5", "UTF-8");
-		String sql="insert into table username values (?,?,"+null+",?)";
+		String sql="insert into table nameTest values (?,?,"+null+",?)";
 		Connection hiveConn = JDBCToHiveUtils.getConnnection();
 		java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
 		int rs;

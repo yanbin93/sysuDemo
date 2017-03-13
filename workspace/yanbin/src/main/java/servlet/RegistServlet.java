@@ -55,7 +55,7 @@ public class RegistServlet extends HttpServlet {
 			String email=request.getParameter("emailsignup");
 			//String other=request.getParameter("othersignin");
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
-			String sql="insert into table usernameTest values (?,?,"+null+",?)";
+			String sql="insert into table nametest values (?,?,"+null+",?)";
 			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
 			int rs;
 			boolean flag = false;

@@ -6,7 +6,7 @@ import java.sql.SQLException;
  
 public class JDBCToHiveUtils {
     private static String driverName ="org.apache.hive.jdbc.HiveDriver";
-    private static String Url="jdbc:hive2://master1:10000/yanbin";    //填写hive的IP，之前在配置文件中配置的IP
+    private static String Url="jdbc:hive2://MS-TXY:10000/default";    //填写hive的IP，之前在配置文件中配置的IP
     private static Connection conn;
     public static Connection getConnnection()
     {

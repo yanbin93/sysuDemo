@@ -1,16 +1,12 @@
 package hive;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-
 public class QueryHiveUtils {
 	private static Connection conn = JDBCToHiveUtils.getConnnection();
 	private static PreparedStatement ps;
 	private static ResultSet rs = null;
-
 	public static void getAll(String tablename) {
 		String sql = "select * from " + tablename;
 		System.out.println(sql);
