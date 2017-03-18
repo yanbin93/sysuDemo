@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import hdfs.HDFSUtil;
+import hdfs.hdfs;
  
 /**
  * Servlet implementation class UploadServlet
@@ -83,6 +86,8 @@ public class UploadServlet extends HttpServlet {
                         File storeFile = new File(filePath);
                         // 在控制台输出文件的上传路径
                         System.out.println(filePath);
+                        HDFSUtil hdfsUtil = new HDFSUtil();
+                        hdfsUtil.copyFromLocalFile(filePath,"/tmp");
                         // 保存文件到硬盘
                         item.write(storeFile);
                         request.setAttribute("message",

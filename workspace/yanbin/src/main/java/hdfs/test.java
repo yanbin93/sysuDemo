@@ -12,7 +12,7 @@ public class test {
         Configuration conf = new Configuration();
         String newDir = "/test";
         //01.检测路径是否存在 测试
-        if (HDFSUtil.exits(conf, newDir)) {
+        if (HDFSUtil.exits( newDir)) {
             System.out.println(newDir + " 已存在!");
         } else {
             //02.创建目录测试
@@ -41,13 +41,13 @@ public class test {
         }
 
         //06. 测试获取所有文件
-        FileSystem fs = FileSystem.get(new URI("hdfs://master1:9002"),conf);
+        FileSystem fs = FileSystem.get(new URI("hdfs://MS-TXY:9002"),conf);
         String dirname = "tmp目录";
         RemoteIterator<LocatedFileStatus> files = HDFSUtil.listFiles(fs, "/tmp", true);
         System.out.println("--临时目录下的所有文件---");
         String FileName = dirname + "/目录列表.txt";
         String context ="";
-        if (HDFSUtil.exits(conf, dirname)) {
+        if (HDFSUtil.exits(dirname)) {
             System.out.println(dirname + " 已存在!");
         } else {
         boolean result = HDFSUtil.createDirectory(conf, dirname);

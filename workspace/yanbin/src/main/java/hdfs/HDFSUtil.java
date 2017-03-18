@@ -18,9 +18,11 @@ import org.apache.hadoop.io.IOUtils;
 public class HDFSUtil { 
 	final static Configuration conf = new Configuration();
 	static FileSystem fs = null;
-	final static String HADOOP_URL="hdfs://master1:9002";
+	final static String HADOOP_URL="hdfs://MS-TXY:9002";
 	public static void main(String[] args) throws IOException, URISyntaxException{
 		fs = FileSystem.get(URI.create(HADOOP_URL), conf);
+		boolean flag=exits("/tmp");
+		System.out.println(flag);
 		}
 	/**
 	 * 判断路径是否存在
@@ -30,7 +32,7 @@ public class HDFSUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static boolean exits(Configuration conf, String path) throws IOException {
+	public static boolean exits(String path) throws IOException {
 		fs = FileSystem.get(URI.create(HADOOP_URL), conf);
 		return fs.exists(new Path(path));
 	}
@@ -70,7 +72,7 @@ public class HDFSUtil {
 	 * @param remoteFilePath
 	 * @throws IOException
 	 */
-	public static void copyFromLocalFile(Configuration conf, String localFilePath, String remoteFilePath)
+	public static void copyFromLocalFile( String localFilePath, String remoteFilePath)
 			throws IOException {
 		//FileSystem fs = FileSystem.get(conf);
 		fs = FileSystem.get(URI.create(HADOOP_URL), conf);
