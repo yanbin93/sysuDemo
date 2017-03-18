@@ -1,5 +1,5 @@
-<%@ page language="java" import="java.util.*" import="model.*
-	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.io.*,java.util.*"  import="model.File"%>
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
@@ -12,7 +12,6 @@
 	href="js/jquery/bootstrap-2/js/bootstrap.min.js" />
 </head>
 <body>
-
 	<div class="container">
 	<div class="row clearfix">
 		<div class="col-md-3 column">
@@ -22,7 +21,8 @@
     	ArrayList<File> list=(ArrayList<File>)request.getAttribute("list");
     	if (list==null||list.size()<1){
     	out.print("没有数据！");
-    	}else {
+    	}
+    	else {
     	%> 
 			<table class="table">
 				<thead>
@@ -31,13 +31,13 @@
 							编号
 						</th>
 						<th>
-							产品
+							名称
 						</th>
 						<th>
-							交付时间
+							类型
 						</th>
 						<th>
-							状态
+							大小
 						</th>
 					</tr>
 				</thead>
@@ -57,13 +57,13 @@
 						<%=file.getType()%>
 						</td>
 						<td>
-						<%=Long.toString(file.getSize())%>
+						<%=Long.toString(file.getSize())+" KB"%>
 						</td>
 					</tr>
 					<%
 					}
-				}
-				%>
+    	}
+					%>
 					<!--  <tr class="success">
 						<td>
 							1
@@ -127,5 +127,4 @@
 	</div>
 	</div>
   </body>
- 
 </html>

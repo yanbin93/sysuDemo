@@ -29,6 +29,7 @@
     	</tr>
     	<%
     	for(AbstractUser user:list){
+    		out.print(user);
     	%>
     	<tr align="center">
     		<td>

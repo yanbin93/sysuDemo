@@ -68,8 +68,9 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(list);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("Filelist.jsp").forward(request, response);
+		request.getRequestDispatcher("FileList.jsp").forward(request, response);
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
