@@ -75,6 +75,12 @@
 		<description>This is the description of my J2EE component</description>
 		<servlet-class>servlet.UploadServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>FindFile</servlet-name>
+		<display-name>FindFile</display-name>
+		<description></description>
+		<servlet-class>servlet.FindFile</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -122,5 +128,9 @@
 	<servlet-mapping>
 		<servlet-name>UploadServlet</servlet-name>
 		<url-pattern>/UploadServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FindFile</servlet-name>
+		<url-pattern>/FindFile</url-pattern>
 	</servlet-mapping>
 </web-app>
