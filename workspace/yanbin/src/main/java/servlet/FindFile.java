@@ -32,16 +32,16 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		response.setContentType("text/html;charset=utf-8"); 
 		request.setCharacterEncoding("utf-8"); 
 		//PrintWriter out = response.getWriter();
-//		int pageSize=12;
-//		int pageNow=1;//默认显示第一页
-//		int rowCount=0;//
-//		int pageCount=0;//该值是通过pageSize和rowCount
+		int pageSize=12;
+		int pageNow=1;//默认显示第一页
+		int rowCount=0;//
+		int pageCount=0;//该值是通过pageSize和rowCount
 //		//接受用户希望显示的页数（pageNow）
-//		String s_pageNow=request.getParameter("pageNow");
-//		if(s_pageNow!=null){
-//		//接收到了pageNow
-//		pageNow=Integer.parseInt(s_pageNow);
-//		}
+		String s_pageNow=request.getParameter("pageNow");
+		if(s_pageNow!=null){
+		//接收到了pageNow
+		pageNow=Integer.parseInt(s_pageNow);
+		}
 		showFile showfile=new showFile();
 //		try {
 //			if(rs.next()){
@@ -52,11 +52,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 //			e.printStackTrace();
 //		}
 		//计算pageCount
-//		if(rowCount%pageSize==0){
-//		pageCount=rowCount/pageSize;
-//		}else{
-//		pageCount=rowCount/pageSize+1;
-	//	}
+
 		//查询出需要显示的记录
 //		String sql="select * from abstractuser order by id desc limit ?,?";
 //		request.setAttribute("pageNow", pageNow);
@@ -64,9 +60,15 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		ArrayList<File> list=null;
 		try {
 			list = showfile.show("/tmp");
+			rowCount = list.size();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if(rowCount%pageSize==0){
+		pageCount=rowCount/pageSize;
+		}else{
+		pageCount=rowCount/pageSize+1;
 		}
 		System.out.println(list);
 		request.setAttribute("list", list);

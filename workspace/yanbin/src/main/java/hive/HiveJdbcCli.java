@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
  */
 public class HiveJdbcCli {
 	private static String driverName = "org.apache.hadoop.hive.jdbc.HiveDriver";
-	private static String url = "jdbc:hive2://master1:10000/default";
+	private static String url = "jdbc:hive2://MS-TXY:10000/default";
 	private static String user = "hive";
 	private static String password = "hive";
 	private static String sql = "";

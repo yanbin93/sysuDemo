@@ -41,7 +41,7 @@ public class test {
         }
 
         //06. 测试获取所有文件
-        FileSystem fs = FileSystem.get(new URI("hdfs://master1:9002"),conf);
+        FileSystem fs = FileSystem.get(new URI("hdfs://MS-TXY:9002"),conf);
         String dirname = "tmp目录";
         RemoteIterator<LocatedFileStatus> files = HDFSUtil.listFiles(fs, "/tmp", true);
         System.out.println("--临时目录下的所有文件---");

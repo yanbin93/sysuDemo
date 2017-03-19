@@ -6,14 +6,14 @@ import java.sql.SQLException;
  
 public class JDBCToHiveUtils {
     private static String driverName ="org.apache.hive.jdbc.HiveDriver";
-    private static String Url="jdbc:hive2://master1:10000/default";    //填写hive的IP，之前在配置文件中配置的IP
+    private static String Url="jdbc:hive2://MS-TXY:10000/default";    //填写hive的IP，之前在配置文件中配置的IP
     private static Connection conn;
     public static Connection getConnnection()
     {
         try
                {
                   Class.forName(driverName);
-                  conn = DriverManager.getConnection(Url,"yanbin","");        //此处的用户名一定是有权限操作HDFS的用户，否则程序会提示"permission deny"异常
+                  conn = DriverManager.getConnection(Url,"ms-txy","");        //此处的用户名一定是有权限操作HDFS的用户，否则程序会提示"permission deny"异常
                }
         catch(ClassNotFoundException e)  {
                    e.printStackTrace();

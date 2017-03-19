@@ -10,7 +10,7 @@ public class HDFStest {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 		FileSystem fs;
-		fs = FileSystem.get(new URI("hdfs://master1:9002"), conf);
+		fs = FileSystem.get(new URI("hdfs://MS-TXY:9002"), conf);
 		String dirname = "/hive";
 //		RemoteIterator<LocatedFileStatus> files = HDFSUtil.listFiles(fs, dirname, true);
 		FileStatus [] statuses=HDFSUtil.listStatus(conf, dirname);

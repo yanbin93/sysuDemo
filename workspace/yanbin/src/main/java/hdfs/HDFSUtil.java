@@ -18,7 +18,7 @@ import org.apache.hadoop.io.IOUtils;
 public class HDFSUtil { 
 	final static Configuration conf = new Configuration();
 	static FileSystem fs = null;
-	final static String HADOOP_URL="hdfs://master1:9002";
+	final static String HADOOP_URL="hdfs://MS-TXY:9002";
 	public static void main(String[] args) throws IOException, URISyntaxException{
 		fs = FileSystem.get(URI.create(HADOOP_URL), conf);
 		boolean flag=exits("/tmp");

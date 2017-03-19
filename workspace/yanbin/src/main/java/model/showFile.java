@@ -12,7 +12,7 @@ public class showFile{
 	
 	public ArrayList<File> show(String dirname) throws Exception{
 //	?dirname = "/hive";
-	fs = FileSystem.get(new URI("hdfs://master1:9002"), conf);
+	fs = FileSystem.get(new URI("hdfs://MS-TXY:9002"), conf);
 	FileStatus [] statuses=HDFSUtil.listStatus(conf, dirname);
 	ArrayList<File> files = new ArrayList<File>();
 	for (FileStatus status:statuses){

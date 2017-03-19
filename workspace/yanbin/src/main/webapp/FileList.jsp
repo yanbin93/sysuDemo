@@ -123,6 +123,35 @@
 					-->
 				</tbody>
 			</table>
+			<%
+int pageNow=Integer.parseInt(request.getAttribute("pageNow").toString());
+int pageCount=Integer.parseInt(request.getAttribute("pageCount").toString());
+ %>
+			<ul class="pagination">
+			<%
+			if(pageNow!=1){
+			%>
+				<li>
+					 <a href=FindFile?pageNow=<%=(pageNow-1)%>>"Prev"</a>
+				</li>
+<%
+}
+%>
+//显示超链接
+<%for(int i=1;i<=pageCount;i++){
+%>
+				<li>
+					 <a href=FindFile?pageNow=<%=i%>><%=i%></a>
+					 </li>
+
+<%
+}				
+//下一页
+if(pageNow!=pageCount){
+out.println("<li><a href=FindUser?pageNow="+(pageNow+1)+">Next</a></li>>");
+}
+ %>
+			</ul>
 		</div>
 	</div>
 	</div>
