@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +39,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		int pageCount=0;//该值是通过pageSize和rowCount
 //		//接受用户希望显示的页数（pageNow）
 		String s_pageNow=request.getParameter("pageNow");
+		String dirname = "/hive/ms-txy";
 		if(s_pageNow!=null){
 		//接收到了pageNow
 		pageNow=Integer.parseInt(s_pageNow);
@@ -55,11 +57,10 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 
 		//查询出需要显示的记录
 //		String sql="select * from abstractuser order by id desc limit ?,?";
-//		request.setAttribute("pageNow", pageNow);
-//		request.setAttribute("pageCount", pageCount);
+
 		ArrayList<File> list=null;
 		try {
-			list = showfile.show("/tmp");
+			list = showfile.show(dirname);
 			rowCount = list.size();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -71,7 +72,12 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		pageCount=rowCount/pageSize+1;
 		}
 		System.out.println(list);
-		request.setAttribute("list", list);
+		int pageStart=(pageNow-1)*pageSize;
+		int pageEnd=(pageStart+pageSize)<rowCount?pageStart+pageSize:rowCount;
+		List<File> tmpList=list.subList(pageStart, pageEnd);
+		request.setAttribute("pageNow", pageNow);
+		request.setAttribute("pageCount", pageCount);
+		request.setAttribute("list", tmpList);
 		request.getRequestDispatcher("FileList.jsp").forward(request, response);
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

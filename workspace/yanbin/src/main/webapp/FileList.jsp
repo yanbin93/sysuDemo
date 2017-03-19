@@ -18,7 +18,7 @@
 		</div>
 		<div class="col-md-9 column">
 		<%
-    	ArrayList<File> list=(ArrayList<File>)request.getAttribute("list");
+    	List<File> list=(List<File>)request.getAttribute("list");
     	if (list==null||list.size()<1){
     	out.print("没有数据！");
     	}
@@ -124,34 +124,20 @@
 				</tbody>
 			</table>
 			<%
-int pageNow=Integer.parseInt(request.getAttribute("pageNow").toString());
-int pageCount=Integer.parseInt(request.getAttribute("pageCount").toString());
- %>
-			<ul class="pagination">
-			<%
-			if(pageNow!=1){
+				int pageNow = Integer.parseInt(request.getAttribute("pageNow").toString());
+				int pageCount = Integer.parseInt(request.getAttribute("pageCount").toString());
+				out.println("<ul class=pagination>");
+				if (pageNow != 1) {
+					out.println("<li><a href=FindFile?pageNow=" + (pageNow - 1) + ">Prev</a></li>");
+				}
+				for (int i = 1; i <= pageCount; i++) {
+					out.println("<li><a href=FindFile?pageNow=" + i + ">" + i + "</a></li>");
+				}
+				if (pageNow != pageCount) {
+					out.println("<li><a href=FindFile?pageNow=" + (pageNow + 1) + ">Next</a></li>");
+				}
+				out.println("</ul>");
 			%>
-				<li>
-					 <a href=FindFile?pageNow=<%=(pageNow-1)%>>"Prev"</a>
-				</li>
-<%
-}
-%>
-//显示超链接
-<%for(int i=1;i<=pageCount;i++){
-%>
-				<li>
-					 <a href=FindFile?pageNow=<%=i%>><%=i%></a>
-					 </li>
-
-<%
-}				
-//下一页
-if(pageNow!=pageCount){
-out.println("<li><a href=FindUser?pageNow="+(pageNow+1)+">Next</a></li>>");
-}
- %>
-			</ul>
 		</div>
 	</div>
 	</div>
