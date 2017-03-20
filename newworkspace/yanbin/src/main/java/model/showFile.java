@@ -40,7 +40,8 @@ public class showFile{
 	ArrayList<File> filter = new ArrayList<File>();
 	while(statuses.hasNext()){
 		LocatedFileStatus status = statuses.next();	
-		if (status.getPath().getName()==filename){
+		System.out.println(status.getPath().getName());
+		if (status.getPath().getName().equals(filename)){
 				File file = new File();
 				long size=status.getLen()/1024;
 				Path name=status.getPath();

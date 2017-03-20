@@ -36,7 +36,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		int pageSize=12;
 		int pageNow=1;//默认显示第一页
 		int rowCount=0;//
-		int pageCount=0;//该值是通过pageSize和rowCount
+		int pageCount=1;//该值是通过pageSize和rowCount
 //		//接受用户希望显示的页数（pageNow）
 		String s_pageNow=request.getParameter("pageNow");
 		String s_dirname=request.getParameter("dirname");
