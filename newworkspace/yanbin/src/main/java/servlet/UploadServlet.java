@@ -13,6 +13,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.jcraft.jsch.Session;
+
 import hdfs.HDFSUtil;
 import hdfs.hdfs;
  
@@ -36,6 +38,7 @@ public class UploadServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
+    	String tempDir = request.getParameter("uploadDir");
 		// 检测是否为多媒体上传
 		if (!ServletFileUpload.isMultipartContent(request)) {
 		    // 如果不是则停止
@@ -44,7 +47,7 @@ public class UploadServlet extends HttpServlet {
 		    writer.flush();
 		    return;
 		}
- 
+
         // 配置上传参数
         DiskFileItemFactory factory = new DiskFileItemFactory();
         // 设置内存临界值 - 超过后将产生临时文件并存储于临时目录中
@@ -89,7 +92,10 @@ public class UploadServlet extends HttpServlet {
                         HDFSUtil hdfsUtil = new HDFSUtil();
                         // 保存文件到硬盘
                         item.write(storeFile);
-                        hdfsUtil.copyFromLocalFile(filePath,"/tmp");
+                        String upDir= "/";
+                		if (tempDir!=null){upDir=tempDir;}
+                		System.out.println(upDir);
+                        hdfsUtil.copyFromLocalFile(filePath,upDir);
                         boolean flag=false;
                         if (storeFile.isFile() && storeFile.exists()) {  
                             storeFile.delete();  

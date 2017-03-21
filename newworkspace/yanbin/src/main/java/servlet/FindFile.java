@@ -83,6 +83,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		request.setAttribute("pageNow", pageNow);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("list", tmpList);
+		request.setAttribute("dirname", dirname);
 		request.getRequestDispatcher("FileTree.jsp").forward(request, response);
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)

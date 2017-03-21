@@ -20,14 +20,14 @@ public class showFile{
 	ArrayList<File> files = new ArrayList<File>();
 	for (FileStatus status:statuses){
 			File file = new File();
-			long size=status.getLen()/1024;
+			long size=status.getLen();
 			Path name=status.getPath();
 			String type = status.isDirectory()?"Dir":"File";
 			file.setSize(size);
 			file.setName(name.toString());
 			file.setType(type);
 			files.add(file);
-			System.out.println(name+ " " +Long.toString(size)+"KB "+type);
+			System.out.println(name+ " " +Long.toString(size)+"B "+type);
 
 	}
     return files;
@@ -43,14 +43,14 @@ public class showFile{
 		System.out.println(status.getPath().getName());
 		if (status.getPath().getName().equals(filename)){
 				File file = new File();
-				long size=status.getLen()/1024;
+				long size=status.getLen();
 				Path name=status.getPath();
 				String type = status.isDirectory()?"Dir":"File";
 				file.setSize(size);
 				file.setName(name.toString());
 				file.setType(type);
 				filter.add(file);
-				System.out.println(name+ " " +Long.toString(size)+"KB "+type);
+				System.out.println(name+ " " +Long.toString(size)+"B "+type);
 		}
 	}
 	    return filter;

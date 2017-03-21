@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="java.io.*,java.util.*" import="model.File"%>
+<%@page import="java.io.*,java.util.*,java.text.DecimalFormat" import="model.File"%>
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
@@ -23,6 +23,14 @@
 </style>
 </head>
 <body>
+<%
+String dirname = (String)request.getAttribute("dirname");
+if (dirname.length()>=17){
+dirname=dirname.substring(18, dirname.length());
+}
+session.setAttribute("uploadDir", dirname);
+out.print(dirname);
+%>
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
@@ -33,7 +41,7 @@
 			<div class="col-md-3">
 				<img alt="1x1" src="lib/hadoop.jpg" class="img-rounded" width=200px
 					height=200px />
-				<form method="post" action="UploadServlet" enctype="multipart/form-data">
+				<form method="post" action="UploadServlet?uploadDir=<%=dirname%>" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="exampleInputFile">File input</label> <input
 							name="uploadFile" type="file" />
@@ -64,7 +72,7 @@
 
 						<ul class="breadcrumb">
 							<li><a href="FindFile?dirname=/">Home</a></li>
-							<li><a href="#">Library</a></li>
+							<li><a href="FindFile?dirname=/">Library</a></li>
 							<li class="active">Data</li>
 						</ul>
 					</div>
@@ -81,6 +89,7 @@
 				</nav>
 
 				<%
+			
     	List<File> list=(List<File>)request.getAttribute("list");
     	if (list==null||list.size()<1){
     	out.print("没有数据！");
@@ -105,6 +114,16 @@
     	{
     		File file = list.get(i);
     		cla=classes[i%6];
+    		String[] arr=file.getName().split("/");
+    		long tmpsize=file.getSize();
+    		DecimalFormat df = new DecimalFormat("0.0");
+    		String size=df.format(tmpsize/1024/1024.0)+" MB";
+    		if (tmpsize/1024/1024==0){
+    			size=(tmpsize/1024)+" KB";
+    			if (tmpsize/1024==0){
+        			size=(float)tmpsize+" B";
+    			}
+    		}
     	%>
 						<tr class=<%=cla%>>
 							<td><%=i+1%></td>
@@ -118,12 +137,12 @@
 						}else
 						{
 							%>
-							<td><a style='color:red' href="ReadFile?filename=<%=file.getName()%>"><%=file.getName()%></a></td>
+							<td><a style='color:red' href="<%=file.getName()%>"><%=arr[arr.length-1]%></a></td>
 							<% 
 					}
 %>
 							<td><%=file.getType()%></td>
-							<td><%=Long.toString(file.getSize())+" KB"%></td>
+							<td><%=size%></td>
 						</tr>
 						<%
 					}
