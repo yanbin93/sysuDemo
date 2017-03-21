@@ -36,6 +36,8 @@
 								<label for="password" class="youpasswd" data-icon="p">
 									Your password </label> <input id="password" name="password"
 									required="required" type="password" placeholder="eg. X8df!90EO" />
+										 <input  name="type"  value="demo" 
+									 type="hidden"  />
 							<!--  p>
 								<label for="exampleInputFile">File input</label>
 								<input name="file" type="file" enctype="multipart/form-data"/>

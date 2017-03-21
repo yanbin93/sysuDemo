@@ -71,30 +71,21 @@ public class CheckUser extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}  
-		  
-//			try {
-//				rs = ps.executeQuery(sql);
-//				//int columns=rs.getMetaData().getColumnCount();
-//				System.out.println("查询用户成功");
-//					while(rs.next()){
-//						//System.out.println(rs.getString("username"));
-//						//System.out.println(rs.getString("password"));
-//						if ((username.equals(rs.getString("username")))&&(pwd.equals(rs.getString("password")))){
-//							System.out.println("匹配成功！");
-//							flag=true;
-//							break;
-//						}
-//					}
-//					rs.close();
-//				} catch (SQLException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
+			String type=(String)request.getParameter("type");
+			request.setAttribute("username",username);
+			
 				if(flag){
+					if (type.equals("demo")) {
 					request.getRequestDispatcher("homepage.jsp").forward(request, response);
-				}else{
-				request.getRequestDispatcher("Error.jsp").forward(request, response);
+					}else if(type.equals("file")){
+					request.getRequestDispatcher("FindFile").forward(request, response);
+					}
 				}
+			  else{
+				  request.setAttribute("type",type);
+				request.setAttribute("message","登录失败！");
+				request.getRequestDispatcher("message.jsp").forward(request, response);
+					}
 			
 	}
 	/**

@@ -8,27 +8,26 @@ import com.sun.jersey.server.impl.model.parameter.multivalued.StringReaderProvid
 
 public class test {
 	public static void main(String[] args){
-		String dirname = "hdfs://MS-TXY:9002/test";
-		
+		String dirname = "/";
 		String[] arr=trans(dirname);
-		System.out.println(arr.length);
 		for (int i=0;i<arr.length;i++){
 			System.out.println("----"+arr[i]+"------");
 		}
+		if (arr.length==0){System.out.println("null!!!");}
 	}
 	public static  String[] trans(String dirname){
 		if (dirname.length()>=17){
 			dirname=dirname.substring(18, dirname.length());
 			}
 		String[] arr=dirname.split("/");
-		System.out.println(arr.length);
-		ArrayList<String> path = new ArrayList<String>();
+		if (arr.length<1){return new String[0];}
+		List<String> path = new ArrayList<String>();
 		for (int i=0;i<arr.length;i++){
-			System.out.println("----"+arr[i]+"------");
 			path.add(path(arr, i));
-		System.out.println(path(arr, i));
 		}
-		String[] paths= path.toArray(new String[]);
+		path.remove(0);
+		System.out.println(path);
+		String[] paths= path.toArray(new String[0]);
 		return paths;
 	}
 	

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="java.io.*,java.util.*,java.text.DecimalFormat" import="model.File"%>
+<%@page import="java.io.*,java.util.*,java.text.DecimalFormat" import="model.File,model.pathList"%>
 <!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
@@ -25,16 +25,20 @@
 <body>
 <%
 String dirname = (String)request.getAttribute("dirname");
+String[] pathlist=pathList.trans(dirname);
 if (dirname.length()>=17){
 dirname=dirname.substring(18, dirname.length());
 }
-session.setAttribute("uploadDir", dirname);
+session.setAttribute("username", request.getAttribute("username"));
 out.print(dirname);
 %>
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
 				<h1 class="text-center">Hadoop云盘系统</h1>
+				<h3 class="text-right"><%="Welcome "+ session.getAttribute("username")%>
+				 <a href="fileLogin.jsp"">退出登录</a>
+				 </h3>
 			</div>
 		</div>
 		<div class="row clearfix">
@@ -50,8 +54,8 @@ out.print(dirname);
 						class="btn btn-lg btn-primary active btn-block">Submit</button>
 				</form>
 				<ul class="nav nav-tabs nav-stacked">
-					<li class="active"><a href="#">文本</a></li>
-					<li><a href="#">图片</a></li>
+					<li class="active"><a href="SearchType?type=0">文本</a></li>
+					<li><a href="SearchType?type=1">图片</a></li>
 					<li class="disabled"><a href="#">压缩文件</a></li>
 					<li class="dropdown pull-right"><a href="#"
 						data-toggle="dropdown" class="dropdown-toggle">其他<strong
@@ -69,11 +73,16 @@ out.print(dirname);
 			<div class="col-md-9 ">
 				<nav class="navbar navbar-default" role="navigation">
 					<div class="navbar-header">
-
+<%
+int len=pathlist.length;
+%>
 						<ul class="breadcrumb">
 							<li><a href="FindFile?dirname=/">Home</a></li>
-							<li><a href="FindFile?dirname=/">Library</a></li>
-							<li class="active">Data</li>
+							<%for (int i=0;i<len;i++) {
+							String[] tmp = pathlist[i].split("/");	
+							out.print("<li><a href=FindFile?dirname="+pathlist[i]+">"+tmp[tmp.length-1]+"</a></li>");
+							}
+							%>
 						</ul>
 					</div>
 					<div class="collapse navbar-collapse" float="right">
@@ -82,9 +91,9 @@ out.print(dirname);
 							<div class="form-group">
 								<input class="form-control" name="filename" type="text" />
 							</div>
-							<button type="submit" class="btn btn-default">Submit</button>
+							<button type="submit" class="btn btn-default">Search</button>
 						</form>
-
+          
 					</div>
 				</nav>
 
@@ -143,8 +152,11 @@ out.print(dirname);
 %>
 							<td><%=file.getType()%></td>
 							<td><%=size%></td>
+							<td><a style='color:red' href="DeleteFile?dirname=<%=file.getName()%>">删除</a></td>
+
 						</tr>
 						<%
+
 					}
     	}
 					%>

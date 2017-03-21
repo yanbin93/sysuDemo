@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,18 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.*;
+import model.File;
+import model.showFile;
 
 /**
- * Servlet implementation class SearchFile
+ * Servlet implementation class SearchType
  */
-public class SearchFile extends HttpServlet {
+public class SearchType extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchFile() {
+    public SearchType() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +30,7 @@ public class SearchFile extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
+public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8"); 
 		request.setCharacterEncoding("utf-8"); 
@@ -38,24 +40,30 @@ public class SearchFile extends HttpServlet {
 		int rowCount=0;//
 		int pageCount=1;//该值是通过pageSize和rowCount
 //		//接受用户希望显示的页数（pageNow）
+		String type = null;
 		String s_pageNow=request.getParameter("pageNow");
-		String s_filename=request.getParameter("filename");
+		String s_type=request.getParameter("type");
 		String dirname = "/";
 		String filename = null;
-		if(s_filename!=null){
+		if(s_type!=null){
 			//接收到了pageNow
-			filename=s_filename;
+			type=s_type;
 			}
 		if(s_pageNow!=null){
 		//接收到了pageNow
 		pageNow=Integer.parseInt(s_pageNow);
 		}
-		System.out.println(filename);
+		List<List<String>> typelist=new ArrayList<List<String>>();
+		List<String> type1 =Arrays.asList("txt","doc","sh","py");
+		List<String> type2 =Arrays.asList("jpg","tif","bmp","gif");
+		typelist.add(type1);
+		typelist.add(type2);
+		System.out.println(type+typelist);
 		showFile showfile=new showFile();
 		ArrayList<File> list=null;
-		if (filename!=null){
+		if (type!=null){
 		try {
-			list = showfile.showSomeone(filename);
+			list = showfile.showSometype(typelist.get(Integer.parseInt(type)));
 			rowCount = list.size();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

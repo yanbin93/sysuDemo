@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="1;url=login.jsp">
 <title>Index</title>
 </head>
 <body>
-1s later turn to login.jsp
+<a href="fileLogin.jsp">前往云盘系统</a>
+<a href="login.jsp">前往溯源系统</a>
 </body>
 </html>
