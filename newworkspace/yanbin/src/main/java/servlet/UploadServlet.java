@@ -93,7 +93,9 @@ public class UploadServlet extends HttpServlet {
                         // 保存文件到硬盘
                         item.write(storeFile);
                         String upDir= "/";
-                		if (tempDir!=null){upDir=tempDir;}
+                		if (tempDir!=null){upDir=tempDir;
+                		request.setAttribute("dirname",tempDir);
+                		}
                 		System.out.println(upDir);
                         hdfsUtil.copyFromLocalFile(filePath,upDir);
                         boolean flag=false;

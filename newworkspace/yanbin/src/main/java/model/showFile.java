@@ -64,9 +64,9 @@ public class showFile{
 	ArrayList<File> filter = new ArrayList<File>();
 	while(statuses.hasNext()){
 		LocatedFileStatus status = statuses.next();	
-		System.out.println(status.getPath().getName());
-		String[] tmp=status.getPath().getName().split(".");
-		String tmptype=tmp[tmp.length-1];
+		String[] tmp=status.getPath().getName().split("\\.");
+		if (tmp.length>=1){
+			String tmptype=tmp[tmp.length-1];
 		if (types.contains(tmptype)){
 				File file = new File();
 				long size=status.getLen();
@@ -76,7 +76,8 @@ public class showFile{
 				file.setName(name.toString());
 				file.setType(type);
 				filter.add(file);
-				System.out.println(name+ " " +Long.toString(size)+"B "+type);
+				System.out.println(name.getName()+ " " +Long.toString(size)+"B "+type);
+		}
 		}
 	}
 	    return filter;

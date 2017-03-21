@@ -71,7 +71,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(rowCount%pageSize==0){
+		if((rowCount%pageSize==0)&&(rowCount!=0)){
 		pageCount=rowCount/pageSize;
 		}else{
 		pageCount=rowCount/pageSize+1;

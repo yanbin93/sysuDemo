@@ -105,6 +105,12 @@
 		<description></description>
 		<servlet-class>servlet.SearchType</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>DownloadFile</servlet-name>
+		<display-name>DownloadFile</display-name>
+		<description></description>
+		<servlet-class>servlet.DownloadFile</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -172,5 +178,9 @@
 	<servlet-mapping>
 		<servlet-name>SearchType</servlet-name>
 		<url-pattern>/SearchType</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DownloadFile</servlet-name>
+		<url-pattern>/DownloadFile</url-pattern>
 	</servlet-mapping>
 </web-app>

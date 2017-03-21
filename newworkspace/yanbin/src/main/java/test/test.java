@@ -4,17 +4,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.security.auth.x500.X500Principal;
+
 import com.sun.jersey.server.impl.model.parameter.multivalued.StringReaderProviders.TypeValueOf;
 
 public class test {
 	public static void main(String[] args){
-		String dirname = "/";
-		String[] arr=trans(dirname);
-		for (int i=0;i<arr.length;i++){
-			System.out.println("----"+arr[i]+"------");
-		}
-		if (arr.length==0){System.out.println("null!!!");}
+		String t="icon.xpm";
+		String[] tmp = t.split("\\.");
+		System.out.println(tmp[tmp.length-1]);
 	}
+//		String dirname = "/";
+//		String[] arr=trans(dirname);
+//		for (int i=0;i<arr.length;i++){
+//			System.out.println("----"+arr[i]+"------");
+//		}
+//		if (arr.length==0){System.out.println("null!!!");}
+//	}
 	public static  String[] trans(String dirname){
 		if (dirname.length()>=17){
 			dirname=dirname.substring(18, dirname.length());

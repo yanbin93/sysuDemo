@@ -28,9 +28,8 @@ String dirname = (String)request.getAttribute("dirname");
 String[] pathlist=pathList.trans(dirname);
 if (dirname.length()>=17){
 dirname=dirname.substring(18, dirname.length());
+request.setAttribute("dirname",dirname);
 }
-session.setAttribute("username", request.getAttribute("username"));
-out.print(dirname);
 %>
 	<div class="container">
 		<div class="row clearfix">
@@ -54,18 +53,16 @@ out.print(dirname);
 						class="btn btn-lg btn-primary active btn-block">Submit</button>
 				</form>
 				<ul class="nav nav-tabs nav-stacked">
-					<li class="active"><a href="SearchType?type=0">文本</a></li>
+					<li><a href="SearchType?type=0">文本</a></li>
 					<li><a href="SearchType?type=1">图片</a></li>
-					<li class="disabled"><a href="#">压缩文件</a></li>
+					<li ><a href="SearchType?type=2">压缩文件</a></li>
 					<li class="dropdown pull-right"><a href="#"
 						data-toggle="dropdown" class="dropdown-toggle">其他<strong
 							class="caret"></strong></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">音乐</a></li>
-							<li><a href="#">视频</a></li>
-							<li><a href="#">应用程序</a></li>
-							<li class="divider"></li>
-							<li><a href="#">分割线</a></li>
+							<li><a href="SearchType?type=3">音乐</a></li>
+							<li><a href="SearchType?type=4">视频</a></li>
+							<li><a href="SearchType?type=5">应用程序</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -101,7 +98,7 @@ int len=pathlist.length;
 			
     	List<File> list=(List<File>)request.getAttribute("list");
     	if (list==null||list.size()<1){
-    	out.print("没有数据！");
+    	out.print("<h3>没有数据</h3>");
     	}
     	else {
     	%>
@@ -146,14 +143,14 @@ int len=pathlist.length;
 						}else
 						{
 							%>
-							<td><a style='color:red' href="<%=file.getName()%>"><%=arr[arr.length-1]%></a></td>
+							<td><a style='color:red' href="ReadFile?filename=<%=file.getName()%>"><%=arr[arr.length-1]%></a></td>
 							<% 
 					}
 %>
 							<td><%=file.getType()%></td>
 							<td><%=size%></td>
 							<td><a style='color:red' href="DeleteFile?dirname=<%=file.getName()%>">删除</a></td>
-
+							<td><a style='color:red' href="DownloadFile?filename=<%=file.getName().substring(18, file.getName().length())%>&isDir=<%=file.getType()%>">下载</a></td>
 						</tr>
 						<%
 

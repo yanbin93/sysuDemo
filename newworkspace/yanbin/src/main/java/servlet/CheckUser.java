@@ -75,6 +75,7 @@ public class CheckUser extends HttpServlet {
 			request.setAttribute("username",username);
 			
 				if(flag){
+					request.setAttribute("type",null);
 					if (type.equals("demo")) {
 					request.getRequestDispatcher("homepage.jsp").forward(request, response);
 					}else if(type.equals("file")){

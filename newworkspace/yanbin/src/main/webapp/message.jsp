@@ -9,13 +9,13 @@ String tmptype=(String)request.getParameter("type");
 if (type!=null){
 	type=tmptype;
 if (type.equals("file") ){
-	out.print( "<meta http-equiv=refresh content=2;url=fileLogin.jsp>");
+	out.print( "<meta http-equiv=refresh content=1;url=fileLogin.jsp>");
 }else if(type.equals("demo")){
-	out.print("<meta http-equiv=refresh content=2;url=login.jsp> ");
+	out.print("<meta http-equiv=refresh content=1;url=login.jsp> ");
 	}
 }
 else {
-	out.print("<meta http-equiv=refresh content=2;url=FindFile>");
+	out.print("<meta http-equiv=refresh content=2;url=toFileTree.jsp>");
 }
 
 %>
@@ -24,6 +24,7 @@ else {
 </head>
 <body>
     <center>
+    <%request.setAttribute("dirname",request.getAttribute("dirname"));%>
         <h2><%=	request.getAttribute("message").toString()%></h2>
     </center>
 </body>
