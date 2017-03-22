@@ -58,9 +58,9 @@ public class showFile{
 	    return filter;
 	}
 
-	public ArrayList<File> showSometype(List<String> types) throws Exception{
+	public ArrayList<File> showSometype(List<String> types,String range) throws Exception{
 	fs = FileSystem.get(new URI("hdfs://MS-TXY:9002"), conf);
-	RemoteIterator<LocatedFileStatus> statuses = HDFSUtil.listFiles(fs, "/",true);
+	RemoteIterator<LocatedFileStatus> statuses = HDFSUtil.listFiles(fs, range,true);
 	ArrayList<File> filter = new ArrayList<File>();
 	while(statuses.hasNext()){
 		LocatedFileStatus status = statuses.next();	
@@ -88,8 +88,13 @@ public class showFile{
 	String content = HDFSUtil.readFile(conf, filename);
 	return content;
 }
+	
 public boolean deleteFile(String filename) throws Exception{
 	boolean result= HDFSUtil.deleteFile(conf, filename,true);
+	return result;
+}
+public boolean createDir(String newDir) throws Exception{
+	boolean result= HDFSUtil.createDirectory(conf, newDir);
 	return result;
 }
 }

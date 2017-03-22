@@ -39,6 +39,7 @@ public class UploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request,
 		HttpServletResponse response) throws ServletException, IOException {
     	String tempDir = request.getParameter("uploadDir");
+        String upDir= "/";
 		// 检测是否为多媒体上传
 		if (!ServletFileUpload.isMultipartContent(request)) {
 		    // 如果不是则停止
@@ -92,9 +93,9 @@ public class UploadServlet extends HttpServlet {
                         HDFSUtil hdfsUtil = new HDFSUtil();
                         // 保存文件到硬盘
                         item.write(storeFile);
-                        String upDir= "/";
-                		if (tempDir!=null){upDir=tempDir;
-                		request.setAttribute("dirname",tempDir);
+     
+                		if (tempDir!=null){
+                			upDir=tempDir;
                 		}
                 		System.out.println(upDir);
                         hdfsUtil.copyFromLocalFile(filePath,upDir);
@@ -113,6 +114,7 @@ public class UploadServlet extends HttpServlet {
                     "错误信息: " + ex.getMessage());
         }
         // 跳转到 message.jsp
+        request.setAttribute("dirname",upDir);
         getServletContext().getRequestDispatcher("/message.jsp").forward(
                 request, response);
     }

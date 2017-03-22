@@ -71,16 +71,12 @@ public class CheckUser extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}  
-			String type=(String)request.getParameter("type");
-			request.setAttribute("username",username);
+			String type=(String)request.getParameter("type");			
 			
 				if(flag){
-					request.setAttribute("type",null);
-					if (type.equals("demo")) {
-					request.getRequestDispatcher("homepage.jsp").forward(request, response);
-					}else if(type.equals("file")){
-					request.getRequestDispatcher("FindFile").forward(request, response);
-					}
+					request.setAttribute("username",username);
+					request.setAttribute("type",type);
+					request.getRequestDispatcher("userFilter.jsp").forward(request, response);			
 				}
 			  else{
 				  request.setAttribute("type",type);

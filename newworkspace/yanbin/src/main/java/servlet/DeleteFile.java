@@ -47,6 +47,11 @@ public class DeleteFile extends HttpServlet {
 		if (result){
 			request.setAttribute("message","文件删除成功！");
 		}
+		System.out.println(dirname);
+		String newdirname=dirname.substring(18, dirname.lastIndexOf("/"));
+		if (newdirname.length()<1){newdirname="/";}
+		System.out.println(newdirname);
+		request.setAttribute("dirname",newdirname);
 		System.out.println(result+"  "+request.getAttribute("message").toString());
 		request.getRequestDispatcher("message.jsp").forward(request, response);
 	}
@@ -56,7 +61,7 @@ public class DeleteFile extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		this.doGet(request, response);
 	}
 
 }

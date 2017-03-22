@@ -45,6 +45,8 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		String s_type=request.getParameter("type");
 		String dirname = "/";
 		String filename = null;
+		String range="/hadoop";
+		if (request.getSession().getAttribute("username").equals("yanbin")){range="/";}
 		if(s_type!=null){
 			//接收到了pageNow
 			type=s_type;
@@ -72,7 +74,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		ArrayList<File> list=null;
 		if (type!=null){
 		try {
-			list = showfile.showSometype(typelist.get(Integer.parseInt(type)));
+			list = showfile.showSometype(typelist.get(Integer.parseInt(type)),range);
 			rowCount = list.size();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

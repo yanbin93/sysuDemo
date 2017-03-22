@@ -12,10 +12,11 @@ import com.sun.jersey.server.impl.model.parameter.multivalued.StringReaderProvid
 
 public class test {
 	public static void main(String[] args){
-		String t="icon.xpm";
-		String[] tmp = t.split("\\.");
-		System.out.println(tmp[tmp.length-1]);
-		InputStream inputStream = new URL(HADOOP_URL+filename).openStream();
+		String t="yanbin";
+		String y=null;
+		y="yanbin";
+		System.out.println(t.equals(y));
+//		InputStream inputStream = new URL(HADOOP_URL+filename).openStream();
 	}
 //		String dirname = "/";
 //		String[] arr=trans(dirname);

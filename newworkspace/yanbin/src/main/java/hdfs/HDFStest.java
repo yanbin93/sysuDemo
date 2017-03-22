@@ -12,24 +12,26 @@ import model.*;
 public class HDFStest {
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		FileSystem fs;
-		fs = FileSystem.get(new URI("hdfs://MS-TXY:9002"), conf);
-		String dirname = "/";
-//		String content = HDFSUtil.readFile(conf, dirname);
-		RemoteIterator<LocatedFileStatus> statuses = HDFSUtil.listFiles(fs, dirname, true);
-//		FileStatus [] statuses=HDFSUtil.listStatus(conf, dirname);
-		ArrayList<File> files = new ArrayList<File>();
-		while(statuses.hasNext()){
-		LocatedFileStatus status = statuses.next();	
-				File file = new File();
-				long size=status.getLen()/1024;
-				Path name=status.getPath();
-				String type = status.isDirectory()?"Dir":"File";
-				file.setSize(size);
-				file.setName(name.toString());
-				file.setType(type);
-				files.add(file);
-				System.out.println(name.getName()+ " " +Long.toString(size)+"KB "+type);
+//		FileSystem fs;
+//		fs = FileSystem.get(new URI("hdfs://MS-TXY:9002"), conf);
+//		String dirname = "/";
+////		String content = HDFSUtil.readFile(conf, dirname);
+//		RemoteIterator<LocatedFileStatus> statuses = HDFSUtil.listFiles(fs, dirname, true);
+////		FileStatus [] statuses=HDFSUtil.listStatus(conf, dirname);
+//		ArrayList<File> files = new ArrayList<File>();
+//		while(statuses.hasNext()){
+//		LocatedFileStatus status = statuses.next();	
+//				File file = new File();
+//				long size=status.getLen()/1024;
+//				Path name=status.getPath();
+//				String type = status.isDirectory()?"Dir":"File";
+//				file.setSize(size);
+//				file.setName(name.toString());
+//				file.setType(type);
+//				files.add(file);
+//				System.out.println(name.getName()+ " " +Long.toString(size)+"KB "+type);
+		boolean flag=HDFSUtil.createDirectory(conf, "/newtest");
+		System.out.println(flag);
 		}
 //		System.out.println(content);
 		
@@ -46,5 +48,5 @@ public class HDFStest {
 //			{
 //			System.out.println(path+" : "+isFile+" "+Long.toString(size));}
 //		}
-	}
+//	}
 }

@@ -32,16 +32,31 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8"); 
 		request.setCharacterEncoding("utf-8"); 
+		String username=null;
+		if (request.getSession().getAttribute("username")==null){response.sendRedirect("fileLogin.jsp");}
+		else{ username= (String)request.getSession().getAttribute("username");
 		//PrintWriter out = response.getWriter();
 		int pageSize=12;
 		int pageNow=1;//默认显示第一页
 		int rowCount=0;//
 		int pageCount=1;//该值是通过pageSize和rowCount
 //		//接受用户希望显示的页数（pageNow）
+		String s_dirname=(String) request.getAttribute("dirname");
 		String s_pageNow=request.getParameter("pageNow");
-		String s_dirname=request.getParameter("dirname");
-		String dirname = "/";
-		if(s_dirname!=null){
+		if(request.getParameter("dirname")!=null){ s_dirname=request.getParameter("dirname");}
+		System.out.println("FindFile s_dirname: "+s_dirname);
+		String dirname=null;
+		if (request.getParameter("username")!=null){username=request.getParameter("username").toString();}
+		if (request.getAttribute("username")!=null){username=request.getAttribute("username").toString();}
+		System.out.println("username:!! "+username);
+		if (username.equals("yanbin")){
+			System.out.println("welcome yanbin!,you have the highest privilage");
+		dirname = "/";}
+		else{
+		dirname = "/hadoop";
+		System.out.println("welcome not yanbin!,you don't have the highest privilage");
+		}
+		if(s_dirname!=(null)){
 			//接收到了pageNow
 			dirname=s_dirname;
 			}
@@ -50,23 +65,12 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		pageNow=Integer.parseInt(s_pageNow);
 		}
 		showFile showfile=new showFile();
-//		try {
-//			if(rs.next()){
-//			rowCount=rs.getInt(1);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		//计算pageCount
-
-		//查询出需要显示的记录
-//		String sql="select * from abstractuser order by id desc limit ?,?";
-
 		ArrayList<File> list=null;
+		System.out.println(dirname);
 		try {
 			list = showfile.show(dirname);
 			rowCount = list.size();
+			System.out.println("FindFile dirname:!! "+dirname);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,6 +89,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		request.setAttribute("list", tmpList);
 		request.setAttribute("dirname", dirname);
 		request.getRequestDispatcher("FileTree.jsp").forward(request, response);
+		}
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
