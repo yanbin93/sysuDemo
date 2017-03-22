@@ -14,7 +14,7 @@ public class hdfs {
 	 * 
 	 * @return
 	 */
-	private static final String HADOOP_URL="hdfs://MS-TXY:9002";  
+	private static final String HADOOP_URL="hdfs://master1:9002";  
 	private void HDFSUtil() {
 	}
 	/**
