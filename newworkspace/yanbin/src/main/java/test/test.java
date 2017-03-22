@@ -1,8 +1,10 @@
 package test;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.net.URL;
 
 import javax.security.auth.x500.X500Principal;
 
@@ -13,6 +15,7 @@ public class test {
 		String t="icon.xpm";
 		String[] tmp = t.split("\\.");
 		System.out.println(tmp[tmp.length-1]);
+		InputStream inputStream = new URL(HADOOP_URL+filename).openStream();
 	}
 //		String dirname = "/";
 //		String[] arr=trans(dirname);

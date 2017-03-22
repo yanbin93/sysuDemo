@@ -111,6 +111,12 @@
 		<description></description>
 		<servlet-class>servlet.DownloadFile</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>Test</servlet-name>
+		<display-name>Test</display-name>
+		<description></description>
+		<servlet-class>servlet.Test</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -182,5 +188,9 @@
 	<servlet-mapping>
 		<servlet-name>DownloadFile</servlet-name>
 		<url-pattern>/DownloadFile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Test</servlet-name>
+		<url-pattern>/Test</url-pattern>
 	</servlet-mapping>
 </web-app>

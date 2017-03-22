@@ -143,14 +143,14 @@ int len=pathlist.length;
 						}else
 						{
 							%>
-							<td><a style='color:red' href="ReadFile?filename=<%=file.getName()%>"><%=arr[arr.length-1]%></a></td>
+							<td><a style='color:red' href="ReadFile?filename=<%=file.getName()%>"  target="_blank"><%=arr[arr.length-1]%></a></td>
 							<% 
 					}
 %>
 							<td><%=file.getType()%></td>
 							<td><%=size%></td>
 							<td><a style='color:red' href="DeleteFile?dirname=<%=file.getName()%>">删除</a></td>
-							<td><a style='color:red' href="DownloadFile?filename=<%=file.getName().substring(18, file.getName().length())%>&isDir=<%=file.getType()%>">下载</a></td>
+							<td><a style='color:red' href="Test?filename=<%=file.getName()%>&isDir=<%=file.getType()%>" target="_blank">打开</a></td>
 						</tr>
 						<%
 
