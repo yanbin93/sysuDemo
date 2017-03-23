@@ -12,7 +12,15 @@ import model.*;
 import hive.*;
 
 public class RegistServlet extends HttpServlet {
-
+	private static String usernameTable=null;
+	static{
+		try {
+			usernameTable=GetProperties.getProperties("username_table");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}}
 	/**
 	 * Constructor of the object.
 	 */
@@ -55,7 +63,7 @@ public class RegistServlet extends HttpServlet {
 			String email=request.getParameter("emailsignup");
 			//String other=request.getParameter("othersignin");
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
-			String sql="insert into table nametest values (?,?,"+null+",?)";
+			String sql="insert into table "+usernameTable+" values (?,?,"+null+",?)";
 			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
 			int rs;
 			boolean flag = false;
@@ -73,10 +81,14 @@ public class RegistServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			String type=(String)request.getParameter("type");	
+			request.setAttribute("type",type);
 				if(flag){
-					request.getRequestDispatcher("login.jsp").forward(request, response);
+					request.setAttribute("message","注册成功！");
+					request.getRequestDispatcher("message.jsp").forward(request, response);
 				}else{
- 				request.getRequestDispatcher("Error.jsp").forward(request, response);
+					request.setAttribute("message","注册失败！");
+ 				request.getRequestDispatcher("message.jsp").forward(request, response);
 				}
 	}
 

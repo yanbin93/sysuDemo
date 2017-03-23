@@ -23,7 +23,7 @@ public class JDBCToHiveUtils {
         try
                {
                   Class.forName(driverName);
-                  conn = DriverManager.getConnection(Url,"ms-txy","");        //此处的用户名一定是有权限操作HDFS的用户，否则程序会提示"permission deny"异常
+                  conn = DriverManager.getConnection(Url,"yanbin","");        //此处的用户名一定是有权限操作HDFS的用户，否则程序会提示"permission deny"异常
                }
         catch(ClassNotFoundException e)  {
                    e.printStackTrace();

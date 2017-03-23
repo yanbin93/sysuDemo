@@ -119,7 +119,7 @@ request.setAttribute("username",session.getAttribute("username").toString());
 							if (session.getAttribute("username").toString().equals("yanbin")) {
 								out.print("<li><a href=\"FindFile?dirname=/\">/</a> </li>");
 							}else{
-								out.print("<li><a class=\"navbar-brand\" href=FindFile?dirname=/hadoop>/hadoop</a></li>");
+								out.print("<li><a class=\"navbar-brand\" href=FindFile?dirname=/hadoop></a></li>");
 							}
 							for (int i = 0; i < len; i++) {
 								String[] tmp = pathlist[i].split("/");
