@@ -24,7 +24,7 @@
 					id="tologin"></a>
 				<div id="wrapper">
 					<div id="login" class="animate form">
-						<form action="CheckUser" action="post">
+						<form action="CheckUser" method="post">
 							 <h1>Log in</h1>
 							<p>
 								<label for="username" class="uname" data-icon="u"> Your
@@ -58,7 +58,7 @@
 					</div>
 
 					<div id="register" class="animate form">
-						<form action="RegistServlet" action="post">
+						<form action="RegistServlet" method="post">
 							<h1>Sign up</h1>
 							<p>
 								<label for="usernamesignup" class="uname" data-icon="u">Your

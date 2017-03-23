@@ -1,9 +1,14 @@
 package test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.net.URL;
 
 import javax.security.auth.x500.X500Principal;
@@ -11,13 +16,20 @@ import javax.security.auth.x500.X500Principal;
 import com.sun.jersey.server.impl.model.parameter.multivalued.StringReaderProviders.TypeValueOf;
 
 public class test {
-	public static void main(String[] args){
-		String t="yanbin";
-		String y=null;
-		y="yanbin";
-		System.out.println(t.equals(y));
+		    public static void main(String[] args) throws Exception, IOException {
+		    	
+		            System.out.println(getProperties("HADOOP_URL"));
+		    
+		    }
+		    public static String getProperties(String key)throws Exception{
+		    String property=null;
+		    Properties pps = new Properties();
+	        pps.load(new FileInputStream("~/workspace/yanbin/src/hadoop.properties"));
+	        property=pps.getProperty(key).toString();
+	        return property;
+		    }		    
 //		InputStream inputStream = new URL(HADOOP_URL+filename).openStream();
-	}
+	
 //		String dirname = "/";
 //		String[] arr=trans(dirname);
 //		for (int i=0;i<arr.length;i++){

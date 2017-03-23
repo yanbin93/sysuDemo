@@ -3,10 +3,20 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import model.GetProperties;
  
 public class JDBCToHiveUtils {
     private static String driverName ="org.apache.hive.jdbc.HiveDriver";
-    private static String Url="jdbc:hive2://MS-TXY:10000/default";    //填写hive的IP，之前在配置文件中配置的IP
+	private static String Url=null;
+	static{
+		try {
+			Url=GetProperties.getProperties("HIVE_URL");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
     private static Connection conn;
     public static Connection getConnnection()
     {

@@ -8,6 +8,8 @@ import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
+import model.GetProperties;
+
 /**
  * Hive的JavaApi
  * 
@@ -18,7 +20,15 @@ import org.apache.log4j.Logger;
  */
 public class HiveJdbcCli {
 	private static String driverName = "org.apache.hadoop.hive.jdbc.HiveDriver";
-	private static String url = "jdbc:hive2://MS-TXY:10000/default";
+	private static String url=null;
+	static{
+		try {
+			url=GetProperties.getProperties("HIVE_URL");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 	private static String user = "hive";
 	private static String password = "hive";
 	private static String sql = "";

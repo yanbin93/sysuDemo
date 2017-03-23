@@ -8,13 +8,23 @@ import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileUtil;  
 import org.apache.hadoop.fs.Path;  
 import org.apache.hadoop.fs.FileStatus;  
-import org.apache.hadoop.io.IOUtils;  
+import org.apache.hadoop.io.IOUtils;
+
+import model.GetProperties;  
   
 public class HDFSDownload  
 {  
     final static Configuration conf = new Configuration();
 	static FileSystem hdfs = null;
-	final static String HADOOP_URL="hdfs://master1:9002";
+	private static String HADOOP_URL=null;
+	static{
+		try {
+			HADOOP_URL=GetProperties.getProperties("HADOOP_URL");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
       
     public static void downloadFile(String srcPath, String dstPath) throws Exception  
     {  

@@ -21,6 +21,15 @@ public class CheckUser extends HttpServlet {
 	/**
 	 * Constructor of the object.
 	 */
+	private static String usernameTable=null;
+	static{
+		try {
+			usernameTable=GetProperties.getProperties("username_table");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 	public CheckUser() {
 		super();
 	}
@@ -58,7 +67,7 @@ public class CheckUser extends HttpServlet {
 			String username=request.getParameter("username");
 			String pwd=request.getParameter("password");
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
-			String sql="select * from nametest where username=? and password=?";  
+			String sql="select * from "+ usernameTable +" where username=? and password=?";  
 			java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
 			ResultSet rs=null;
 			boolean flag = false;

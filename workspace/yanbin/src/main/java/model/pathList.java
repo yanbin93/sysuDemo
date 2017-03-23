@@ -2,12 +2,18 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class pathList {
 	public static String[] trans(String dirname) {
-		if (dirname.length() >= 18) {
-			dirname = dirname.substring(19, dirname.length());
-		}
+		String regex = "^hdfs://.*\\d+/";
+		   Pattern pat = Pattern.compile(regex);  
+		   Matcher matcher = pat.matcher(dirname);     
+		   while (matcher.find()) { 
+		     String temp = dirname.substring(matcher.start(),matcher.end());
+		     dirname = dirname.replaceAll(temp, "/");
+		   }   
 		String[] arr = dirname.split("/");
 		if (arr.length < 1) {
 			return new String[0];

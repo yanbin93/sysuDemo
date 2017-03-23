@@ -15,10 +15,20 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.RemoteIterator;
 import org.apache.hadoop.io.IOUtils;
 
+import model.GetProperties;
+
 public class HDFSUtil { 
 	final static Configuration conf = new Configuration();
 	static FileSystem fs = null;
-	final static String HADOOP_URL="hdfs://master1:9002";
+	private static String HADOOP_URL=null;
+	static{
+		try {
+			HADOOP_URL=GetProperties.getProperties("HADOOP_URL");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 	public static void main(String[] args) throws IOException, URISyntaxException{
 		fs = FileSystem.get(URI.create(HADOOP_URL), conf);
 		boolean flag=exits("/tmp");

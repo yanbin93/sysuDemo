@@ -3,6 +3,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.IOUtils;
 
+import model.GetProperties;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +16,15 @@ public class hdfs {
 	 * 
 	 * @return
 	 */
-	private static final String HADOOP_URL="hdfs://master1:9002";  
+	private static String HADOOP_URL=null;
+	static{
+		try {
+			HADOOP_URL=GetProperties.getProperties("HADOOP_URL");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 	private void HDFSUtil() {
 	}
 	/**

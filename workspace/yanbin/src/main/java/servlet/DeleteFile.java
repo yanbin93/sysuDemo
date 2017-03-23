@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +51,15 @@ public class DeleteFile extends HttpServlet {
 			request.setAttribute("message","文件删除成功！");
 		}
 		System.out.println(dirname);
-		String newdirname=dirname.substring(19, dirname.lastIndexOf("/"));
+			String regex = "^hdfs://.*\\d+/";
+		   Pattern pat = Pattern.compile(regex);  
+		   Matcher matcher = pat.matcher(dirname);     
+		   while (matcher.find()) { 
+		     String temp = dirname.substring(matcher.start(),matcher.end());
+		     dirname = dirname.replaceAll(temp, "/");
+		   }   
+		   System.out.println(dirname);
+		String newdirname=dirname.substring(0, dirname.lastIndexOf("/"));
 		if (newdirname.length()<1){newdirname="/";}
 		System.out.println(newdirname);
 		request.setAttribute("dirname",newdirname);

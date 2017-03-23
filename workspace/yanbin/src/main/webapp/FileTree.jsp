@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="java.io.*,java.util.*,java.text.DecimalFormat" import="model.File,model.pathList"%>
+<%@page import="java.io.*,java.util.*,java.util.regex.*,java.text.DecimalFormat" import="model.File,model.pathList"%>
 <!DOCTYPE html>
 <head>
 <%
@@ -11,12 +11,13 @@ if(session.getAttribute("username")==null){
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css"
-	href="js/jquery/bootstrap/css/bootstrap.min.css" />
-<script src="js/jquery/bootstrap/jquery/jquery-2.1.1.min.js" />
-<script src="js/jquery/bootstrap/js/bootstrap.min.js" />
+	href="js/jquery/bootstrap/css/bootstrap.min.css" /> 
+<script src="js/jquery/bootstrap/jquery/jquery-2.1.1.min.js" ></script>
+<script src="js/jquery/bootstrap/js/bootstrap.min.js" > </script>
 <link id="bootstrap_221" rel="stylesheet" type="text/css"
 	class="library"
 	href="http://sandbox.runjs.cn/js/sandbox/bootstrap-2.2.1/css/bootstrap.min.css">
+	
 <script id="jquery_172" type="text/javascript" class="library"
 	src="http://sandbox.runjs.cn/js/sandbox/jquery/jquery-1.7.2.min.js"></script>
 <script id="bootstrap_221" type="text/javascript" class="library"
@@ -34,24 +35,32 @@ if (request.getAttribute("dirname")!=null){
 dirname = (String)request.getAttribute("dirname");
 }
 String[] pathlist=pathList.trans(dirname);
-if (dirname.length()>=18){
-dirname=dirname.substring(19, dirname.length());}
+//for (String path:pathlist){out.print(path+"   ");}
+String regex = "^hdfs://.*\\d+/";
+Pattern pat = Pattern.compile(regex);  
+Matcher matcher = pat.matcher(dirname);     
+while (matcher.find()) { 
+  String temp = dirname.substring(matcher.start(),matcher.end());
+  dirname = dirname.replaceAll(temp, "/");
+}   
+//out.print("----"+dirname+"-----");
 request.setAttribute("dirname",dirname);
-out.print(dirname+"-------"+session.getAttribute("username").toString().equals("yanbin"));
+//out.print(dirname+"-------"+session.getAttribute("username").toString().equals("yanbin"));
 request.setAttribute("username",session.getAttribute("username").toString());
 
 %>
-	<div class="container">
-		<div class="row clearfix">
+	<div class="container" >
+	<!-- div class="container-fluid"-->
+		<div class="row clearfix" >
 			<div class="col-md-12 column">
 				<h1 class="text-center">Hadoop云盘系统</h1>
-				<h3 class="text-right"><%="Welcome "+ session.getAttribute("username")%>
+				<p class="text-right"><i class="icon-user"></i><%=" "+ session.getAttribute("username")%>
 				 <a href="exit.jsp">退出登录</a>
-				 </h3>
+				 </p>
 			</div>
 		</div>
-		<div class="row clearfix">
-			<div class="col-md-3">
+		<div class="row clearfix" style="BORDER-RIGHT: 3px outset;BORDER-LEFT: 3px outset; BORDER-TOP: 3px outset;  BORDER-BOTTOM: 3px outset;HEIGHT: 100%">
+			<div class="col-md-3" style=" BORDER-TOP: 3px outset; HEIGHT: 100%">
 				<img alt="1x1" src="lib/hadoop.jpg" class="img-rounded" width=200px
 					height=200px />
 				<form method="post" action="UploadServlet?uploadDir=<%=dirname%>" enctype="multipart/form-data">
@@ -85,35 +94,45 @@ request.setAttribute("username",session.getAttribute("username").toString());
 				</ul>
 			</div>
 
-			<div class="col-md-9 ">
+			<div class="col-md-9 " style="BORDER-LEFT: 3px outset; BORDER-TOP: 3px outset; HEIGHT: 100%">
 				<nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
 					<div class="navbar-header">
+					<%if (session.getAttribute("username").toString().equals("yanbin")) {
+								out.print("<a class=\"navbar-brand\" href=\"FindFile?dirname=/\">Home</a>");
+							}else{
+								out.print("<a class=\"navbar-brand\" href=FindFile?dirname=/hadoop>Home</a>");
+							}
+					%>
+					</div>
+							<div>
+					<form class="navbar-form navbar-right" role="search" action="SearchFile" method="post">
+							<div class="form-group">
+								<input class="form-control" name="filename" type="text" />
+							</div>
+							<button type="submit" class="btn btn-default">Search</button>
+						</form>
+          </div>
 						<%
 							int len = pathlist.length;
-							out.print("<ul class=breadcrumb>");
+							out.print("<ol class=\"breadcrumb\">");
 							if (session.getAttribute("username").toString().equals("yanbin")) {
-								out.print("<li><a href=FindFile?dirname=/>Home</a></li>");
+								out.print("<li><a href=\"FindFile?dirname=/\">/</a> </li>");
 							}else{
-								out.print("<li><a href=FindFile?dirname=/hadoop>Home</a></li>");
+								out.print("<li><a class=\"navbar-brand\" href=FindFile?dirname=/hadoop>/hadoop</a></li>");
 							}
 							for (int i = 0; i < len; i++) {
 								String[] tmp = pathlist[i].split("/");
 								out.print("<li><a href=FindFile?username=" + session.getAttribute("username") + "&dirname="
 										+ pathlist[i] + ">" + tmp[tmp.length - 1] + "</a></li>");
 							}
+							out.print("</ol>");
 						%>
-						</ul>
+				
 					</div>
-					<div class="collapse navbar-collapse" float="right">
-
-						<form class="navbar-form navbar-left" role="search" action="SearchFile" method="post">
-							<div class="form-group">
-								<input class="form-control" name="filename" type="text" />
-							</div>
-							<button type="submit" class="btn btn-default">Search</button>
-						</form>
-          
-					</div>
+					
+		
+					
 				</nav>
 
 				<%
@@ -135,13 +154,13 @@ request.setAttribute("username",session.getAttribute("username").toString());
 					</thead>
 					<tbody>
 						<%
-		String[] classes={"error","success","error","warning","error","info"};
+		String[] classes={"","success","","warning","","info","","error"};
 		String cla;
     	for(int i=0;i<list.size();i++)
     		
     	{
     		File file = list.get(i);
-    		cla=classes[i%6];
+    		cla=classes[i%8];
     		String[] arr=file.getName().split("/");
     		long tmpsize=file.getSize();
     		DecimalFormat df = new DecimalFormat("0.0");
@@ -171,8 +190,19 @@ request.setAttribute("username",session.getAttribute("username").toString());
 %>
 							<td><%=file.getType()%></td>
 							<td><%=size%></td>
-							<td><a style='color:red' href="DeleteFile?dirname=<%=file.getName()%>">删除</a></td>
-							<td><a style='color:red' href="Test?filename=<%=file.getName()%>&isDir=<%=file.getType()%>" target="_blank">打开</a></td>
+							<td><a style='color:red' href="DeleteFile?dirname=<%=file.getName()%>">删除！<i class="icon-minus-sign"></i></a></td>
+								<%if (file.getType().equals("Dir"))
+						{
+						%>
+							<td><a style='color:red' href="FindFile?dirname=<%=file.getName()%>" >打开<i class=" icon-folder-open"></i></a></td>
+								<%
+						}else
+						{
+							%>
+							<td><a style='color:red' href="Test?filename=<%=file.getName()%>&isDir=<%=file.getType()%>" target="_blank">下载<i class="icon-circle-arrow-down"></i></a></td>
+							<% 
+					}
+%>
 						</tr>
 						<%
 
