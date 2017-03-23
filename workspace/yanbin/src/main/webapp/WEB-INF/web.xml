@@ -1,0 +1,206 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<servlet>
+		<servlet-name>FindServlet</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.FindServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddBookServlet</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.AddBookServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FindUser</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.FindUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddUser</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.AddUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserDelete</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.UserDelete</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddProduct</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.AddProduct</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FindProduct</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.FindProduct</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ProductDelete</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.ProductDelete</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CheckUser</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.CheckUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>RegistServlet</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.RegistServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ModUser</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.ModUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UploadServlet</servlet-name>
+		<display-name>This is the display name of my J2EE component</display-name>
+		<description>This is the description of my J2EE component</description>
+		<servlet-class>servlet.UploadServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FindFile</servlet-name>
+		<display-name>FindFile</display-name>
+		<description></description>
+		<servlet-class>servlet.FindFile</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ReadFile</servlet-name>
+		<display-name>ReadFile</display-name>
+		<description></description>
+		<servlet-class>servlet.ReadFile</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchFile</servlet-name>
+		<display-name>SearchFile</display-name>
+		<description></description>
+		<servlet-class>servlet.SearchFile</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DeleteFile</servlet-name>
+		<display-name>DeleteFile</display-name>
+		<description></description>
+		<servlet-class>servlet.DeleteFile</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchType</servlet-name>
+		<display-name>SearchType</display-name>
+		<description></description>
+		<servlet-class>servlet.SearchType</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>DownloadFile</servlet-name>
+		<display-name>DownloadFile</display-name>
+		<description></description>
+		<servlet-class>servlet.DownloadFile</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Test</servlet-name>
+		<display-name>Test</display-name>
+		<description></description>
+		<servlet-class>servlet.Test</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CreateDirServlet</servlet-name>
+		<display-name>CreateDirServlet</display-name>
+		<description></description>
+		<servlet-class>servlet.CreateDirServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FindServlet</servlet-name>
+		<url-pattern>/FindServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddBookServlet</servlet-name>
+		<url-pattern>/AddBookServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FindUser</servlet-name>
+		<url-pattern>/FindUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddUser</servlet-name>
+		<url-pattern>/AddUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserDelete</servlet-name>
+		<url-pattern>/UserDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddProduct</servlet-name>
+		<url-pattern>/AddProduct</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FindProduct</servlet-name>
+		<url-pattern>/FindProduct</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProductDelete</servlet-name>
+		<url-pattern>/ProductDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CheckUser</servlet-name>
+		<url-pattern>/CheckUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegistServlet</servlet-name>
+		<url-pattern>/RegistServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ModUser</servlet-name>
+		<url-pattern>/ModUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/UploadServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FindFile</servlet-name>
+		<url-pattern>/FindFile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReadFile</servlet-name>
+		<url-pattern>/ReadFile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchFile</servlet-name>
+		<url-pattern>/SearchFile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DeleteFile</servlet-name>
+		<url-pattern>/DeleteFile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchType</servlet-name>
+		<url-pattern>/SearchType</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DownloadFile</servlet-name>
+		<url-pattern>/DownloadFile</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Test</servlet-name>
+		<url-pattern>/Test</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CreateDirServlet</servlet-name>
+		<url-pattern>/CreateDirServlet</url-pattern>
+	</servlet-mapping>
+</web-app>

@@ -64,6 +64,7 @@
     -->
     <Connector connectionTimeout="20000" port="18080" protocol="HTTP/1.1" redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
+<<<<<<< HEAD
     <!--
     <Connector executor="tomcatThreadPool"
                port="8080" protocol="HTTP/1.1"
@@ -71,6 +72,14 @@
                redirectPort="8443" />
     -->
     <!-- Define a SSL HTTP/1.1 Connector on port 8443
+=======
+   
+<!--    <Connector executor="tomcatThreadPool"
+               port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    -->    <!-- Define a SSL HTTP/1.1 Connector on port 8443
+>>>>>>> spark
          This connector uses the BIO implementation that requires the JSSE
          style configuration. When using the APR/native implementation, the
          OpenSSL style configuration is required as described in the APR/native
