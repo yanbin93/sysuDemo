@@ -33,42 +33,64 @@ public class FindProduct extends HttpServlet {
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8"); 
 		request.setCharacterEncoding("utf-8"); 
-		PrintWriter out = response.getWriter();
+		String username=null;
+		if (request.getSession().getAttribute("username")==null){response.sendRedirect("fileLogin.jsp");}
+		else{ username= (String)request.getSession().getAttribute("username");
+		//PrintWriter out = response.getWriter();
 		int pageSize=12;
 		int pageNow=1;//默认显示第一页
 		int rowCount=0;//
-		int pageCount=0;//该值是通过pageSize和rowCount
-		//接受用户希望显示的页数（pageNow）
+		int pageCount=1;//该值是通过pageSize和rowCount
+//		//接受用户希望显示的页数（pageNow）
+		String s_dirname=(String) request.getAttribute("dirname");
 		String s_pageNow=request.getParameter("pageNow");
+		if(request.getParameter("dirname")!=null){ s_dirname=request.getParameter("dirname");}
+		System.out.println("FindFile s_dirname: "+s_dirname);
+		String dirname=null;
+		if (request.getParameter("username")!=null){username=request.getParameter("username").toString();}
+		if (request.getAttribute("username")!=null){username=request.getAttribute("username").toString();}
+		System.out.println("username:!! "+username);
+		if (username.equals("yanbin")){
+			System.out.println("welcome yanbin!,you have the highest privilage");
+		dirname = "/";}
+		else{
+		dirname = "/hadoop";
+		System.out.println("welcome not yanbin!,you don't have the highest privilage");
+		}
+		if(s_dirname!=(null)){
+			//接收到了pageNow
+			dirname=s_dirname;
+			}
 		if(s_pageNow!=null){
 		//接收到了pageNow
 		pageNow=Integer.parseInt(s_pageNow);
 		}
-		DBconn conn=new DBconn();
-		ResultSet rs=conn.doSelect("select count(*) from product", new int[]{});
-		ShowProduct showproduct=new ShowProduct();
+		showFile showfile=new showFile();
+		ArrayList<File> list=null;
+		System.out.println(dirname);
 		try {
-			if(rs.next()){
-			rowCount=rs.getInt(1);
-			}
-		} catch (SQLException e) {
+			list = showfile.show(dirname);
+			rowCount = list.size();
+			System.out.println("FindFile dirname:!! "+dirname);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//计算pageCount
-		if(rowCount%pageSize==0){
+		if((rowCount%pageSize==0)&&(rowCount!=0)){
 		pageCount=rowCount/pageSize;
 		}else{
 		pageCount=rowCount/pageSize+1;
 		}
-		//查询出需要显示的记录
-		String sql="select * from product order by product_id desc limit ?,?";
+		System.out.println(list);
+		int pageStart=(pageNow-1)*pageSize;
+		int pageEnd=(pageStart+pageSize)<rowCount?pageStart+pageSize:rowCount;
+		List<File> tmpList=list.subList(pageStart, pageEnd);
 		request.setAttribute("pageNow", pageNow);
 		request.setAttribute("pageCount", pageCount);
-		ArrayList<Product> list=showproduct.show(sql,new int[]{(pageNow-1)*pageSize,pageSize});
-		request.setAttribute("list", list);
-		out.print("取得产品结果集！");
-		request.getRequestDispatcher("Product_list.jsp").forward(request, response);
+		request.setAttribute("list", tmpList);
+		request.setAttribute("dirname", dirname);
+		request.getRequestDispatcher("product_list.jsp").forward(request, response);
+		}
 	}
 
 	/**

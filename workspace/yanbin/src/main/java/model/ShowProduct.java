@@ -50,4 +50,31 @@ public class ShowProduct {
 			e.printStackTrace();
 	}return list;
 	}
-}
+
+
+	public ArrayList<Product> hiveQuery(String sql){
+	java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
+	ResultSet rs=null;
+	ResultSet rs=conn.doSelect(sql);
+	ArrayList<Product> list= new ArrayList<Product>();
+		//request.setAttribute("name",rs.getString("name"));
+		try {
+			rs=ps.executeQuery();
+			while(rs.next()){
+				Product product=new Product();
+				product.setProductId(rs.getInt("productId"));
+				product.setProductName(rs.getString("productName"));
+				product.setProductNo(rs.getString("ProductNo"));
+				product.setProductCode(rs.getString("productCode"));
+				product.setProductBatch(rs.getString("productBatch"));
+				product.setProductStart(rs.getDate("product_start"));
+				product.setProductEnd(rs.getDate("product_end"));
+				product.setDescription(rs.getString("description"));
+				list.add(product);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+	}return list;
+	}

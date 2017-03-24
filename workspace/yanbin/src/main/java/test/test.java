@@ -4,23 +4,57 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import java.net.URL;
+import java.util.regex.Pattern;
 
 import javax.security.auth.x500.X500Principal;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import com.sun.jersey.server.impl.model.parameter.multivalued.StringReaderProviders.TypeValueOf;
+
+import model.File;
+import model.ListAll;
 
 public class test {
 		    public static void main(String[] args) throws Exception, IOException {
-		    	
-		            System.out.println(getProperties("HADOOP_URL"));
-		    
-		    }
+		    	int[] notin= {1,2,3,4};
+		    	Integer[] is = ArrayUtils.toObject(notin);
+		    	List<Integer> asList = Arrays.asList(is);
+		    	System.out.println(asList);
+		    	System.out.println(asList);
+		         }
+//		         String type=file.getClass().toString().split(" ")[1];
+//		         System.out.println(file.getClass().toString().split(" ")[1]);
+//		         c = Class.forName(type);
+//		         
+//		         Field [] fields = c.getDeclaredFields();  
+//		         Method[] methods = c.getMethods();
+//		         Pattern p = Pattern.compile("\\w+\\.");
+//		         Constructor[] ctors = c.getConstructors();
+//		         for (Constructor method:ctors){
+//		        	 System.out.println("A---------------------------------A");
+//		        	 System.out.println(p.matcher(method.toString()).replaceAll(""));
+//		        	 System.out.println("---------------------------------");
+//		        	 System.out.println(method.toString());
+//		        	 System.out.println("B---------------------------------B");
+//		         }
+//		         for(Field f:fields){  
+//		             f.setAccessible(true);  
+//		         }  
+//		         //输出p1的所有属性  
+//		         System.out.println("=============About file===============");  
+//		         for(Field f:fields){  
+//		        	 System.out.println(f.toString());
+//		             String field = f.toString().substring(f.toString().lastIndexOf(".")+1);         //取出属性名称  
+//		             System.out.println("p1."+field+" --> "+f.get(file));  
+//		         }     
 		    public static String getProperties(String key)throws Exception{
 		    String property=null;
 		    Properties pps = new Properties();

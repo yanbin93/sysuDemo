@@ -14,10 +14,19 @@ import hdfs.HDFSUtil;
 public class showFile{
 	final Configuration conf = new Configuration();
 	static FileSystem fs;
+	private static String HADOOP_URL=null;
+	static{
+		try {
+			HADOOP_URL=GetProperties.getProperties("HADOOP_URL");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+}
 	
 	public ArrayList<File> show(String dirname) throws Exception{
 //	?dirname = "/hive";
-	fs = FileSystem.get(new URI("hdfs://master1:9002"), conf);
+	fs = FileSystem.get(new URI(HADOOP_URL), conf);
 	FileStatus [] statuses=HDFSUtil.listStatus(conf, dirname);
 	ArrayList<File> files = new ArrayList<File>();
 	for (FileStatus status:statuses){
@@ -37,7 +46,7 @@ public class showFile{
 
 
 	public ArrayList<File> showSomeone(String filename) throws Exception{
-	fs = FileSystem.get(new URI("hdfs://master1:9002"), conf);
+	fs = FileSystem.get(new URI(HADOOP_URL), conf);
 	RemoteIterator<LocatedFileStatus> statuses = HDFSUtil.listFiles(fs, "/",true);
 	ArrayList<File> filter = new ArrayList<File>();
 	while(statuses.hasNext()){
@@ -59,7 +68,7 @@ public class showFile{
 	}
 
 	public ArrayList<File> showSometype(List<String> types,String range) throws Exception{
-	fs = FileSystem.get(new URI("hdfs://master1:9002"), conf);
+	fs = FileSystem.get(new URI(HADOOP_URL), conf);
 	RemoteIterator<LocatedFileStatus> statuses = HDFSUtil.listFiles(fs, range,true);
 	ArrayList<File> filter = new ArrayList<File>();
 	while(statuses.hasNext()){
@@ -84,7 +93,7 @@ public class showFile{
 	}
 
 	public String showFile(String filename) throws Exception{
-	fs = FileSystem.get(new URI("hdfs://master1:9002"), conf);
+	fs = FileSystem.get(new URI(HADOOP_URL), conf);
 	String content = HDFSUtil.readFile(conf, filename);
 	return content;
 }
