@@ -1,9 +1,13 @@
 package model;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.*;
+import java.util.*;
+
+
+import hive.JDBCToHiveUtils;
 public class ShowProduct {
-	
+	private static Connection conn = JDBCToHiveUtils.getConnnection();
+	private static PreparedStatement ps;
+	private static ResultSet rs = null;
 	public ArrayList<Product> show(String sql,int[]para){
 	DBconn conn=new DBconn();
 	ResultSet rs=conn.doSelect(sql,para);
@@ -52,11 +56,12 @@ public class ShowProduct {
 	}
 
 
-	public ArrayList<Product> hiveQuery(String sql){
-	java.sql.PreparedStatement ps =JDBCToHiveUtils.prepare(hiveConn,sql);
-	ResultSet rs=null;
-	ResultSet rs=conn.doSelect(sql);
+	public ArrayList<Product> hiveQuery(String sql,String[] para) throws Exception{		
+	ps =JDBCToHiveUtils.prepare(conn,sql);
 	ArrayList<Product> list= new ArrayList<Product>();
+	for (int i=1;i<=para.length;i++){
+		ps.setString(i, para[i-1]);
+	}
 		//request.setAttribute("name",rs.getString("name"));
 		try {
 			rs=ps.executeQuery();
@@ -66,10 +71,10 @@ public class ShowProduct {
 				product.setProductName(rs.getString("productName"));
 				product.setProductNo(rs.getString("ProductNo"));
 				product.setProductCode(rs.getString("productCode"));
-				product.setProductBatch(rs.getString("productBatch"));
-				product.setProductStart(rs.getDate("product_start"));
-				product.setProductEnd(rs.getDate("product_end"));
-				product.setDescription(rs.getString("description"));
+				//product.setProductBatch(rs.getString("productBatch"));
+				//product.setProductStart(rs.getDate("product_start"));
+				//product.setProductEnd(rs.getDate("product_end"));
+				//product.setDescription(rs.getString("description"));
 				list.add(product);
 			}
 			rs.close();
@@ -78,3 +83,4 @@ public class ShowProduct {
 			e.printStackTrace();
 	}return list;
 	}
+}

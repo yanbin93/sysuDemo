@@ -21,15 +21,15 @@ import com.sun.jersey.server.impl.model.parameter.multivalued.StringReaderProvid
 
 import model.File;
 import model.ListAll;
+import model.Product;
+import model.ShowProduct;
 
 public class test {
 		    public static void main(String[] args) throws Exception, IOException {
-		    	int[] notin= {1,2,3,4};
-		    	Integer[] is = ArrayUtils.toObject(notin);
-		    	List<Integer> asList = Arrays.asList(is);
-		    	System.out.println(asList);
-		    	System.out.println(asList);
-		         }
+		    	String sql="select * from product limit 10 ";}
+//		    	for (Product list:asList){
+//		    	System.out.println(ListAll.show(list));}
+//		         }
 //		         String type=file.getClass().toString().split(" ")[1];
 //		         System.out.println(file.getClass().toString().split(" ")[1]);
 //		         c = Class.forName(type);

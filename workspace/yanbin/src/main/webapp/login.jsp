@@ -38,7 +38,7 @@
 									required="required" type="password" placeholder="eg. X8df!90EO" />
 										 <input  name="type"  value="demo" 
 									 type="hidden"  />
-									  <input  name="type"  value="commonUser" 
+									  <input  name="usertype"  value="commonUser" 
 									 type="hidden"  />
 							<!--  p>
 								<label for="exampleInputFile">File input</label>

@@ -147,13 +147,13 @@ String dirname=request.getParameter("dirname");
 				if(request.getAttribute("pageCount")!=null){ pageCount = Integer.parseInt(request.getAttribute("pageCount").toString());}
 				out.println("<ul class=pagination>");
 				if (pageNow != 1) {
-					out.println("<li><a href=Product?pageNow=" + (pageNow - 1) + ">Prev</a></li>");
+					out.println("<li><a href=FindProduct?pageNow=" + (pageNow - 1) + ">Prev</a></li>");
 				}
 				for (int i = 1; i <= pageCount; i++) {
-					out.println("<li><a href=ProductList?pageNow=" + i + ">" + i + "</a></li>");
+					out.println("<li><a href=FindProduct?pageNow=" + i + ">" + i + "</a></li>");
 				}
 				if (pageNow != pageCount) {
-					out.println("<li><a href=ProductList?pageNow=" + (pageNow + 1) + ">Next</a></li>");
+					out.println("<li><a href=FindProduct?pageNow=" + (pageNow + 1) + ">Next</a></li>");
 				}
 				out.println("</ul>");
 			%>

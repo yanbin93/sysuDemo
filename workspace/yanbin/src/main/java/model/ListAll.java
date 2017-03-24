@@ -20,13 +20,13 @@ public class ListAll {
         f.setAccessible(true);  
     }  
     //输出p1的所有属性  
-    System.out.println("=============About file===============");  
+//    System.out.println("=============About file===============");  
     for(Field f:fields){  
-   	 	System.out.println(f.toString());
+//   	 	System.out.println(f.toString());
         String field = f.toString().substring(f.toString().lastIndexOf(".")+1);
         Object fetch = f.get(object);//取出属性名称
         if (fetch==null){fetch="";}
-			System.out.println(object.toString()+" "+field+" --> "+fetch);
+//			System.out.println(object.toString()+" "+field+" --> "+fetch);
 			result.add(fetch.toString());
     }
     return result;

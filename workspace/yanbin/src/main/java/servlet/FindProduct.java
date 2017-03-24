@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,6 +37,11 @@ public class FindProduct extends HttpServlet {
 		String username=null;
 		if (request.getSession().getAttribute("username")==null){response.sendRedirect("fileLogin.jsp");}
 		else{ username= (String)request.getSession().getAttribute("username");
+		String productID="";
+		
+		if (request.getParameter("productId")!=null){
+			productID=request.getParameter("productId");
+		}
 		//PrintWriter out = response.getWriter();
 		int pageSize=12;
 		int pageNow=1;//默认显示第一页
@@ -65,11 +71,13 @@ public class FindProduct extends HttpServlet {
 		//接收到了pageNow
 		pageNow=Integer.parseInt(s_pageNow);
 		}
-		showFile showfile=new showFile();
-		ArrayList<File> list=null;
-		System.out.println(dirname);
+		String sql="select * from product where productId = ?";
+		ShowProduct showproduct=new ShowProduct();
+		String[] para={productID};
+		ArrayList<Product> list=null;
+		System.out.println("productId: "+para+"----"+productID);
 		try {
-			list = showfile.show(dirname);
+			list = showproduct.hiveQuery(sql,para);
 			rowCount = list.size();
 			System.out.println("FindFile dirname:!! "+dirname);
 		} catch (Exception e) {
@@ -84,12 +92,12 @@ public class FindProduct extends HttpServlet {
 		System.out.println(list);
 		int pageStart=(pageNow-1)*pageSize;
 		int pageEnd=(pageStart+pageSize)<rowCount?pageStart+pageSize:rowCount;
-		List<File> tmpList=list.subList(pageStart, pageEnd);
+		List<Product> tmpList=list.subList(pageStart, pageEnd);
 		request.setAttribute("pageNow", pageNow);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("list", tmpList);
 		request.setAttribute("dirname", dirname);
-		request.getRequestDispatcher("product_list.jsp").forward(request, response);
+		request.getRequestDispatcher("product_search.jsp").forward(request, response);
 		}
 	}
 

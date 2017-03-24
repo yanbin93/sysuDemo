@@ -123,6 +123,12 @@
 		<description></description>
 		<servlet-class>servlet.CreateDirServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ProductList</servlet-name>
+		<display-name>ProductList</display-name>
+		<description></description>
+		<servlet-class>servlet.ProductList</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -202,5 +208,9 @@
 	<servlet-mapping>
 		<servlet-name>CreateDirServlet</servlet-name>
 		<url-pattern>/CreateDirServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProductList</servlet-name>
+		<url-pattern>/ProductList</url-pattern>
 	</servlet-mapping>
 </web-app>
