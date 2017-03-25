@@ -42,7 +42,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 //		//接受用户希望显示的页数（pageNow）
 		String type = null;
 		String s_pageNow=request.getParameter("pageNow");
-		String s_type=request.getParameter("type");
+		String s_type=request.getParameter("filetype");
 		String dirname = "/";
 		String filename = null;
 		String range="/hadoop";
@@ -94,7 +94,8 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("list", tmpList);
 		request.setAttribute("dirname", dirname);
-		request.getRequestDispatcher("FileTree.jsp").forward(request, response);
+		request.setAttribute("filetype", type);
+		request.getRequestDispatcher("filetypetree.jsp").forward(request, response);
 	}
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

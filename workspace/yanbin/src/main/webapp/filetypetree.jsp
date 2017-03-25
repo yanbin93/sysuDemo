@@ -218,13 +218,13 @@ request.setAttribute("username",session.getAttribute("username").toString());
 				if(request.getAttribute("pageCount")!=null){ pageCount = Integer.parseInt(request.getAttribute("pageCount").toString());}
 				out.println("<ul class=pagination>");
 				if (pageNow != 1) {
-					out.println("<li><a href=FindFile?dirname="+dirname+"&pageNow=" + (pageNow - 1) + ">Prev</a></li>");
+					out.println("<li><a href=SearchType?filetype="+request.getAttribute("filetype")+"&pageNow=" + (pageNow - 1) + ">Prev</a></li>");
 				}
 				for (int i = 1; i <= pageCount; i++) {
-					out.println("<li><a href=FindFile?dirname="+dirname+"&pageNow=" + i + ">" + i + "</a></li>");
+					out.println("<li><a href=SearchType?filetype="+request.getAttribute("filetype")+"&pageNow=" + i + ">" + i + "</a></li>");
 				}
 				if (pageNow != pageCount) {
-					out.println("<li><a href=FindFile?dirname="+dirname+"&pageNow=" + (pageNow + 1) + ">Next</a></li>");
+					out.println("<li><a href=SearchType?filetype="+request.getAttribute("filetype")+"&pageNow=" + (pageNow + 1) + ">Next</a></li>");
 				}
 				out.println("</ul>");
 			%>

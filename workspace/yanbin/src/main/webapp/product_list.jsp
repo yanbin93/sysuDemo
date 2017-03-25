@@ -53,9 +53,9 @@ String dirname=request.getParameter("dirname");
 						class="btn btn-lg btn-primary active btn-block">Submit</button>
 				</form>
 				<ul class="nav nav-tabs nav-stacked">
-					<li class="active"><a href="SearchType?type=0">Common User</a></li>
-					<li><a href="SearchType?type=1">Company User</a></li>
-					<li ><a href="SearchType?type=2">Adminiatrater</a></li>
+					<li ><a href="exit.jsp">Common User</a></li>
+					<li class="active"><a href="exit.jsp">Company User</a></li>
+					<li ><a href="exit.jsp">Adminiatrater</a></li>
 					<li class="dropdown pull-right"><a href="#"
 						data-toggle="dropdown" class="dropdown-toggle">其他<strong
 							class="caret"></strong></a>
@@ -77,13 +77,15 @@ String dirname=request.getParameter("dirname");
 								out.print("<a class=\"navbar-brand\" href=FindFile?dirname=/hadoop>前往文件系统</a>");
 							}
 					%>
+			
 					</div>
 							<div>
-					<form class="navbar-form navbar-right" role="search" action="FindProduct" method="post">
+					<form class="navbar-form navbar-right" role="search" action="FindProduct2" method="post">
 							<div class="form-group">
 								<input class="form-control" name="productId" type="text" />
 							</div>
 							<button type="submit" class="btn btn-default">Search</button>
+									<a href="ProductList">返回</a>
 						</form>
           </div>			
 				</div>
@@ -162,9 +164,11 @@ String dirname=request.getParameter("dirname");
 				<ul >
 				<div>
 				<form action="ProductList" method="post">
-				
-				<li><button type="submit" >跳到</button>
-				第<input style="width:100px;height:20px" type="text" />页</li> 
+				<%String s_pageNow="1";
+				if(request.getAttribute("s_pageNow")!=null){s_pageNow=request.getAttribute("s_pageNow").toString();}
+				%>
+						<li><button type="submit" >跳到</button>
+				第<input style="width:100px;height:20px" type="text" name="pageNow" value=<%=s_pageNow %>>页</li> 
 				
 				</form>
 				</div>

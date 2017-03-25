@@ -87,7 +87,11 @@ public class FindProduct2 extends HttpServlet {
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("list", tmpList);
 		request.setAttribute("dirname", dirname);
-		request.getRequestDispatcher("product_search2.jsp").forward(request, response);
+		if (request.getSession().getAttribute("usertype").equals("companyUser")){
+			request.getRequestDispatcher("product_list.jsp").forward(request, response);}
+		else{request.getRequestDispatcher("product_search2.jsp").forward(request, response);
+		}
+		
 	}
 	else{request.getRequestDispatcher("product_search2.jsp").forward(request, response);}
 		}

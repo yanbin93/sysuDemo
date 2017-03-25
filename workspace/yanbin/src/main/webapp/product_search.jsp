@@ -50,9 +50,9 @@ if(session.getAttribute("username")==null||!session.getAttribute("usertype").toS
 					height=200px />
 		
 				<ul class="nav nav-tabs nav-stacked">
-					<li class="active"><a href="SearchType?type=0">Common User</a></li>
-					<li><a href="SearchType?type=1">Company User</a></li>
-					<li ><a href="SearchType?type=2">Adminiatrater</a></li>
+					<li class="active"><a href="exit.jsp">Common User</a></li>
+					<li><a href="exit.jsp">Company User</a></li>
+					<li ><a href="exit.jsp">Adminiatrater</a></li>
 					<li class="dropdown pull-right"><a href="#"
 						data-toggle="dropdown" class="dropdown-toggle">其他<strong
 							class="caret"></strong></a>

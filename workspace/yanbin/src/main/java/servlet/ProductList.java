@@ -93,8 +93,11 @@ public class ProductList extends HttpServlet {
 		System.out.println(list);
 		int pageStart=(pageNow-1)*pageSize;
 		int pageEnd=(pageStart+pageSize)<rowCount?pageStart+pageSize:rowCount;
-		List<Product> tmpList=list.subList(pageStart, pageEnd);
+		List<Product> tmpList=list;
 		request.setAttribute("pageNow", pageNow);
+		if (s_pageNow==null){s_pageNow="1";}
+		request.setAttribute("s_pageNow", s_pageNow);
+		System.out.println(s_pageNow);
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("list", tmpList);
 		request.setAttribute("dirname", dirname);
