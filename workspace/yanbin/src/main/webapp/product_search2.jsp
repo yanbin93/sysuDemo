@@ -4,13 +4,12 @@
 <!DOCTYPE html>
 <head>
 <%
-if(session.getAttribute("username")==null||!session.getAttribute("usertype").toString().equals("companyUser")){
-	  response.sendRedirect("login.jsp");
-	}
-String dirname=request.getParameter("dirname");
+//if(session.getAttribute("username")==null){
+	//  response.sendRedirect("login.jsp");
+	//}
+//String dirname=request.getParameter("dirname");
 %>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" type="text/css"
 	href="js/jquery/bootstrap/css/bootstrap.min.css" /> 
 <script src="js/jquery/bootstrap/jquery/jquery-2.1.1.min.js" ></script>
@@ -30,56 +29,19 @@ String dirname=request.getParameter("dirname");
 </style>
 </head>
 <body>
+<%
+//if(session.getAttribute("username")==null||!session.getAttribute("usertype").toString().equals("commonUser")){
+	  //response.sendRedirect("login.jsp");
+	//}%>
 	<div class="container" >
 	<!-- div class="container-fluid"-->
 		<div class="row clearfix" >
-			<div class="col-md-12 column">
-				<h1 class="text-center">Hadoop溯源系统</h1>
-				<p class="text-right"><i class="icon-user"></i><%=" "+ session.getAttribute("username")%>
-				 <a href="exit.jsp">退出登录</a>
-				 </p>
-			</div>
-		</div>
-		<div class="row clearfix" style="BORDER-RIGHT: 3px outset;BORDER-LEFT: 3px outset; BORDER-TOP: 3px outset;  BORDER-BOTTOM: 3px outset;HEIGHT: 100%">
-			<div class="col-md-3" style=" BORDER-TOP: 3px outset; HEIGHT: 100%">
-				<img alt="1x1" src="lib/fangwei.png" class="img-rounded" width=200px
-					height=200px />
-				<form method="post" action="#?uploadDir=<%=dirname%>" enctype="multipart/form-data">
-					<div class="form-group">
-						<label for="exampleInputFile">File input</label>
-						 <input name="uploadFile" type="file" />
-					</div>
-					<button type="submit"
-						class="btn btn-lg btn-primary active btn-block">Submit</button>
-				</form>
-				<ul class="nav nav-tabs nav-stacked">
-					<li class="active"><a href="SearchType?type=0">Common User</a></li>
-					<li><a href="SearchType?type=1">Company User</a></li>
-					<li ><a href="SearchType?type=2">Adminiatrater</a></li>
-					<li class="dropdown pull-right"><a href="#"
-						data-toggle="dropdown" class="dropdown-toggle">其他<strong
-							class="caret"></strong></a>
-						<ul class="dropdown-menu">
-							<li><a href="SearchType?type=3">音乐</a></li>
-							<li><a href="SearchType?type=4">视频</a></li>
-							<li><a href="SearchType?type=5">应用程序</a></li>
-						</ul></li>
-				</ul>
-			</div>
-
-			<div class="col-md-9 " style="BORDER-LEFT: 3px outset; BRDER-TOP: 3px outset; HEIGHT: 100%">
+			<div class="col-sm-12 col-md-12 col-lg-12" style="BORDER-LEFT: 3px outset; BRDER-TOP: 3px outset; HEIGHT: 100%">
 				<nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
-					<div class="navbar-header">
-					<%if (session.getAttribute("username").equals("yanbin")) {
-								out.print("<a class=\"navbar-brand\" href=\"FindFile?dirname=/\">前往文件系统</a>");
-							}else{
-								out.print("<a class=\"navbar-brand\" href=FindFile?dirname=/hadoop>前往文件系统</a>");
-							}
-					%>
-					</div>
+					
 							<div>
-					<form class="navbar-form navbar-right" role="search" action="FindProduct" method="post">
+					<form class="navbar-form navbar-left" role="search" action="FindProduct2" method="post">
 							<div class="form-group">
 								<input class="form-control" name="productId" type="text" />
 							</div>
@@ -143,33 +105,20 @@ String dirname=request.getParameter("dirname");
     	}
 				int pageNow=1;
 				int pageCount=1;
-				int pageSize=1;
-				if(request.getAttribute("pageSize")!=null){ pageSize = Integer.parseInt(request.getAttribute("pageSize").toString());}
 				if(request.getAttribute("pageNow")!=null){ pageNow = Integer.parseInt(request.getAttribute("pageNow").toString());}
 				if(request.getAttribute("pageCount")!=null){ pageCount = Integer.parseInt(request.getAttribute("pageCount").toString());}
 				out.println("<ul class=pagination>");
 				if (pageNow != 1) {
-					out.println("<li><a href=Product?pageNow=" + (pageNow - 1) + ">Prev</a></li>");
+					out.println("<li><a href=FindProduct?pageNow=" + (pageNow - 1) + ">Prev</a></li>");
 				}
 				for (int i = 1; i <= pageCount; i++) {
-					out.println("<li><a href=ProductList?pageNow=" + i + ">" + i + "</a></li>");
+					out.println("<li><a href=FindProduct?pageNow=" + i + ">" + i + "</a></li>");
 				}
 				if (pageNow != pageCount) {
-					out.println("<li><a href=ProductList?pageNow=" + (pageNow + 1) + ">Next</a></li>");
-				}%>
-				<li>共<%=pageSize%>页</li>
-				</ul>
-				<ul >
-				<div>
-				<form action="ProductList" method="post">
-				
-				<li><button type="submit" >跳到</button>
-				第<input style="width:100px;height:20px" type="text" />页</li> 
-				
-				</form>
-				</div>
-				</ul>
-
+					out.println("<li><a href=FindProduct?pageNow=" + (pageNow + 1) + ">Next</a></li>");
+				}
+				out.println("</ul>");
+			%>
 			</div>
 		</div>
 	</div>

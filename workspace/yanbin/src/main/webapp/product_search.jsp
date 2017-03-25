@@ -5,7 +5,7 @@
 <head>
 <%
 if(session.getAttribute("username")==null){
-	  response.sendRedirect("login.jsp");
+	 response.sendRedirect("login.jsp");
 	}
 String dirname=request.getParameter("dirname");
 %>
@@ -30,6 +30,10 @@ String dirname=request.getParameter("dirname");
 </style>
 </head>
 <body>
+<%
+if(session.getAttribute("username")==null||!session.getAttribute("usertype").toString().equals("commonUser")){
+	  response.sendRedirect("login.jsp");
+	}%>
 	<div class="container" >
 	<!-- div class="container-fluid"-->
 		<div class="row clearfix" >
@@ -44,14 +48,7 @@ String dirname=request.getParameter("dirname");
 			<div class="col-md-3" style=" BORDER-TOP: 3px outset; HEIGHT: 100%">
 				<img alt="1x1" src="lib/fangwei.png" class="img-rounded" width=200px
 					height=200px />
-				<form method="post" action="#?uploadDir=<%=dirname%>" enctype="multipart/form-data">
-					<div class="form-group">
-						<label for="exampleInputFile">File input</label>
-						 <input name="uploadFile" type="file" />
-					</div>
-					<button type="submit"
-						class="btn btn-lg btn-primary active btn-block">Submit</button>
-				</form>
+		
 				<ul class="nav nav-tabs nav-stacked">
 					<li class="active"><a href="SearchType?type=0">Common User</a></li>
 					<li><a href="SearchType?type=1">Company User</a></li>
@@ -70,16 +67,9 @@ String dirname=request.getParameter("dirname");
 			<div class="col-md-9 " style="BORDER-LEFT: 3px outset; BRDER-TOP: 3px outset; HEIGHT: 100%">
 				<nav class="navbar navbar-default" role="navigation">
 					<div class="container-fluid">
-					<div class="navbar-header">
-					<%if (session.getAttribute("username").equals("yanbin")) {
-								out.print("<a class=\"navbar-brand\" href=\"FindFile?dirname=/\">前往文件系统</a>");
-							}else{
-								out.print("<a class=\"navbar-brand\" href=FindFile?dirname=/hadoop>前往文件系统</a>");
-							}
-					%>
-					</div>
+					
 							<div>
-					<form class="navbar-form navbar-right" role="search" action="FindProduct" method="post">
+					<form class="navbar-form navbar-left" role="search" action="FindProduct" method="post">
 							<div class="form-group">
 								<input class="form-control" name="productId" type="text" />
 							</div>

@@ -64,6 +64,7 @@ public class CheckUser extends HttpServlet {
 			//DBconn conn=new DBconn();
 			java.sql.Connection hiveConn =JDBCToHiveUtils.getConnnection();
 			MD5 md=new MD5();
+			String usertype=request.getParameter("usertype");
 			String username=request.getParameter("username");
 			String pwd=request.getParameter("password");
 			pwd =md.EncryptionStr32(pwd, "MD5", "UTF-8");
@@ -84,6 +85,7 @@ public class CheckUser extends HttpServlet {
 			
 				if(flag){
 					request.setAttribute("username",username);
+					request.setAttribute("usertype",usertype);
 					request.setAttribute("type",type);
 					request.getRequestDispatcher("userFilter.jsp").forward(request, response);			
 				}

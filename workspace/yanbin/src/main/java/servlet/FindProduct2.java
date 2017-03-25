@@ -1,6 +1,9 @@
 package servlet;
-import model.*;
+
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,36 +12,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ProductList
- */
-public class ProductList extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProductList() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+import model.*;
+
+public class FindProduct2 extends HttpServlet {
+	public void destroy() {
+		super.destroy(); // Just puts "destroy" string in log
+		// Put your code here
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * The doPost method of the servlet. <br>
+	 *
+	 * This method is called when a form has its tag value method equals to post.
+	 * 
+	 * @param request the request send by the client to the server
+	 * @param response the response send by the server to the client
+	 * @throws ServletException if an error occurred
+	 * @throws IOException if an error occurred
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-				response.setContentType("text/html;charset=utf-8"); 
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=utf-8"); 
 		request.setCharacterEncoding("utf-8"); 
 		String username=null;
-		if (request.getSession().getAttribute("username")==null){response.sendRedirect("fileLogin.jsp");}
-		else{ username= (String)request.getSession().getAttribute("username");
-		String productID="";
-		
-		if (request.getParameter("productId")!=null){
-			productID=request.getParameter("productId");
-		}
-		//PrintWriter out = response.getWriter();
+	String productID="";
+	if (request.getParameter("productId")!=null)
+	{
+		productID=request.getParameter("productId");
+	
 		int pageSize=12;
 		int pageNow=1;//默认显示第一页
 		int rowCount=0;//
@@ -46,20 +47,12 @@ public class ProductList extends HttpServlet {
 //		//接受用户希望显示的页数（pageNow）
 		String s_dirname=(String) request.getAttribute("dirname");
 		String s_pageNow=request.getParameter("pageNow");
-		if (s_pageNow!=null){pageNow=Integer.parseInt(s_pageNow);}
 		if(request.getParameter("dirname")!=null){ s_dirname=request.getParameter("dirname");}
 		System.out.println("FindFile s_dirname: "+s_dirname);
 		String dirname=null;
 		if (request.getParameter("username")!=null){username=request.getParameter("username").toString();}
 		if (request.getAttribute("username")!=null){username=request.getAttribute("username").toString();}
 		System.out.println("username:!! "+username);
-		if (username.equals("yanbin")){
-			System.out.println("welcome yanbin!,you have the highest privilage");
-		dirname = "/";}
-		else{
-		dirname = "/hadoop";
-		System.out.println("welcome not yanbin!,you don't have the highest privilage");
-		}
 		if(s_dirname!=(null)){
 			//接收到了pageNow
 			dirname=s_dirname;
@@ -68,14 +61,14 @@ public class ProductList extends HttpServlet {
 		//接收到了pageNow
 		pageNow=Integer.parseInt(s_pageNow);
 		}
-		String sql="select * from product where Id >= ? and Id <?";
+		String sql="select * from product where productId = ?";
 		ShowProduct showproduct=new ShowProduct();
-		String[] para={Integer.toString(pageNow),Integer.toString(pageNow+pageSize)};
+		String[] para={productID};
 		ArrayList<Product> list=null;
-		System.out.println("productId: "+para+"----");
+		System.out.println("productId: "+para+"----"+productID);
 		try {
 			list = showproduct.hiveQuery(sql,para);
-			rowCount = showproduct.hiveQuery("select * from product ").size();
+			rowCount = list.size();
 			System.out.println("FindFile dirname:!! "+dirname);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -85,10 +78,6 @@ public class ProductList extends HttpServlet {
 		pageCount=rowCount/pageSize;
 		}else{
 		pageCount=rowCount/pageSize+1;
-		request.setAttribute("pageSize", pageCount);
-		}
-		if (pageCount>12){
-			pageCount=12;
 		}
 		System.out.println(list);
 		int pageStart=(pageNow-1)*pageSize;
@@ -98,18 +87,23 @@ public class ProductList extends HttpServlet {
 		request.setAttribute("pageCount", pageCount);
 		request.setAttribute("list", tmpList);
 		request.setAttribute("dirname", dirname);
-		request.getRequestDispatcher("product_list.jsp").forward(request, response);
+		request.getRequestDispatcher("product_search2.jsp").forward(request, response);
+	}
+	else{request.getRequestDispatcher("product_search2.jsp").forward(request, response);}
 		}
 	
 
-	}
-
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * Initialization of the servlet. <br>
+	 *
+	 * @throws ServletException if an error occurs
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		this.doGet(request, response);
+	}
+	public void init() throws ServletException {
+		// Put your code here
 	}
 
 }

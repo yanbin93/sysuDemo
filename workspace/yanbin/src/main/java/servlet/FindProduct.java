@@ -35,14 +35,12 @@ public class FindProduct extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8"); 
 		request.setCharacterEncoding("utf-8"); 
 		String username=null;
-		if (request.getSession().getAttribute("username")==null){response.sendRedirect("fileLogin.jsp");}
+		if (request.getSession().getAttribute("username")==null){System.out.println("~~~~~");response.sendRedirect("login.jsp");}
 		else{ username= (String)request.getSession().getAttribute("username");
+		System.out.println("!!!!!!!");
 		String productID="";
-		
-		if (request.getParameter("productId")!=null){
-			productID=request.getParameter("productId");
-		}
-		//PrintWriter out = response.getWriter();
+		if (request.getParameter("productId")!=null)
+		{productID=request.getParameter("productId");}
 		int pageSize=12;
 		int pageNow=1;//默认显示第一页
 		int rowCount=0;//
@@ -53,8 +51,6 @@ public class FindProduct extends HttpServlet {
 		if(request.getParameter("dirname")!=null){ s_dirname=request.getParameter("dirname");}
 		System.out.println("FindFile s_dirname: "+s_dirname);
 		String dirname=null;
-		if (request.getParameter("username")!=null){username=request.getParameter("username").toString();}
-		if (request.getAttribute("username")!=null){username=request.getAttribute("username").toString();}
 		System.out.println("username:!! "+username);
 		if (username.equals("yanbin")){
 			System.out.println("welcome yanbin!,you have the highest privilage");
@@ -100,7 +96,7 @@ public class FindProduct extends HttpServlet {
 		request.getRequestDispatcher("product_search.jsp").forward(request, response);
 		}
 	}
-
+	
 	/**
 	 * Initialization of the servlet. <br>
 	 *

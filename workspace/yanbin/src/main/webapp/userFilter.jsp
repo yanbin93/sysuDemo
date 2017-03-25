@@ -11,9 +11,12 @@
 session.setAttribute("username", request.getAttribute("username"));
 String type = request.getAttribute("type").toString();
 if (type.equals("demo")) {
-	
 	session.setAttribute("usertype", request.getAttribute("usertype"));
-	request.getRequestDispatcher("FindProduct").forward(request, response);	
+	String usertype = request.getAttribute("usertype").toString();
+	if (usertype.equals("commonUser")){
+	request.getRequestDispatcher("FindProduct").forward(request, response);	}
+	else if (usertype.equals("companyUser")){
+		request.getRequestDispatcher("ProductList").forward(request, response);	}
 }
 else if(type.equals("file")){
 	request.getRequestDispatcher("toFileTree.jsp").forward(request, response);

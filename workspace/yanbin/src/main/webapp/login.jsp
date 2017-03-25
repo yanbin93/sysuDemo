@@ -25,7 +25,7 @@
 				<div id="wrapper">
 					<div id="login" class="animate form">
 						<form action="CheckUser" method="post">
-							 <h1>Log in</h1>
+							 <h1>普通用户</h1>
 							<p>
 								<label for="username" class="uname" data-icon="u"> Your
 									email or username </label> <input id="username" name="username"
@@ -53,7 +53,17 @@
 								<input type="submit" value="Login" />
 							</p>
 							<p class="change_link">
-								Not a member yet ? <a href="#toregister" class="to_register">Join
+								companyUser ? <a href="login2.jsp" class="to_register">
+									Click here</a>
+							</p>
+								
+							
+							<p class="change_link">
+							<a href="login2.jsp" class="to_register">
+									companyUser</a>
+									<a href="login3.jsp" class="to_register">
+									admin</a>
+										&nbsp Not a member yet ? <a href="#toregister" class="to_register">Join
 									us</a>
 							</p>
 						</form>

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.*;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -26,7 +27,19 @@ import model.ShowProduct;
 
 public class test {
 		    public static void main(String[] args) throws Exception, IOException {
-		    	String sql="select * from product limit 10 ";}
+		    	 InetAddress ia=null;
+		         try {
+		             ia=ia.getLocalHost();
+		              
+		             String localname=ia.getHostName();
+		             String localip=ia.getHostAddress();
+		             System.out.println("本机名称是："+ localname);
+		             System.out.println("本机的ip是 ："+localip);
+		         } catch (Exception e) {
+		             // TODO Auto-generated catch block
+		             e.printStackTrace();
+		         }
+		    }
 //		    	for (Product list:asList){
 //		    	System.out.println(ListAll.show(list));}
 //		         }
