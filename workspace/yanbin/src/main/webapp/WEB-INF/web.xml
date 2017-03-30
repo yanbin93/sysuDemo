@@ -73,55 +73,55 @@
 		<servlet-name>UploadServlet</servlet-name>
 		<display-name>This is the display name of my J2EE component</display-name>
 		<description>This is the description of my J2EE component</description>
-		<servlet-class>servlet.UploadServlet</servlet-class>
+		<servlet-class>hadoopservlet.UploadServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>FindFile</servlet-name>
 		<display-name>FindFile</display-name>
 		<description></description>
-		<servlet-class>servlet.FindFile</servlet-class>
+		<servlet-class>hadoopservlet.FindFile</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ReadFile</servlet-name>
 		<display-name>ReadFile</display-name>
 		<description></description>
-		<servlet-class>servlet.ReadFile</servlet-class>
+		<servlet-class>hadoopservlet.ReadFile</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>SearchFile</servlet-name>
 		<display-name>SearchFile</display-name>
 		<description></description>
-		<servlet-class>servlet.SearchFile</servlet-class>
+		<servlet-class>hadoopservlet.SearchFile</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>DeleteFile</servlet-name>
 		<display-name>DeleteFile</display-name>
 		<description></description>
-		<servlet-class>servlet.DeleteFile</servlet-class>
+		<servlet-class>hadoopservlet.DeleteFile</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>SearchType</servlet-name>
 		<display-name>SearchType</display-name>
 		<description></description>
-		<servlet-class>servlet.SearchType</servlet-class>
+		<servlet-class>hadoopservlet.SearchType</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>DownloadFile</servlet-name>
 		<display-name>DownloadFile</display-name>
 		<description></description>
-		<servlet-class>servlet.DownloadFile</servlet-class>
+		<servlet-class>hadoopservlet.DownloadFile</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Test</servlet-name>
 		<display-name>Test</display-name>
 		<description></description>
-		<servlet-class>servlet.Test</servlet-class>
+		<servlet-class>hadoopservlet.Test</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>CreateDirServlet</servlet-name>
 		<display-name>CreateDirServlet</display-name>
 		<description></description>
-		<servlet-class>servlet.CreateDirServlet</servlet-class>
+		<servlet-class>hadoopservlet.CreateDirServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ProductList</servlet-name>
