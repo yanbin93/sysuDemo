@@ -26,19 +26,36 @@ import model.Product;
 import model.ShowProduct;
 
 public class test {
+	private static Properties props = new Properties();
 		    public static void main(String[] args) throws Exception, IOException {
-		    	 InetAddress ia=null;
-		         try {
-		             ia=ia.getLocalHost();
-		              
-		             String localname=ia.getHostName();
-		             String localip=ia.getHostAddress();
-		             System.out.println("本机名称是："+ localname);
-		             System.out.println("本机的ip是 ："+localip);
-		         } catch (Exception e) {
-		             // TODO Auto-generated catch block
-		             e.printStackTrace();
-		         }
+		    	InputStream is = test.class.getClassLoader().getResourceAsStream("hadoop.properties");
+		    	System.out.println(test.class.getClassLoader().getResource(""));
+		    	System.out.println(is);
+		    	try {
+					props.load(is);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally{
+					if(is!=null){
+						try {
+							is.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+//		    	 InetAddress ia=null;
+//		         try {
+//		             ia=ia.getLocalHost();
+//		              
+//		             String localname=ia.getHostName();
+//		             String localip=ia.getHostAddress();
+//		             System.out.println("本机名称是："+ localname);
+//		             System.out.println("本机的ip是 ："+localip);
+//		         } catch (Exception e) {
+//		             // TODO Auto-generated catch block
+//		             e.printStackTrace();
+//		         }
 		    }
 //		    	for (Product list:asList){
 //		    	System.out.println(ListAll.show(list));}
