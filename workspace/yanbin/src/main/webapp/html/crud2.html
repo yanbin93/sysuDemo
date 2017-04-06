@@ -3,13 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Basic DataGrid - jQuery EasyUI Demo</title>
-<link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/default/easyui.css">  
-<link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/icon.css">  
-<link rel="stylesheet" type="text/css" href="js/jquery/easyui/demo/demo.css">  
-<script type="text/javascript" src="js/jquery/easyui/jquery.min.js"></script>  
-<script type="text/javascript" src="js/jquery/easyui/jquery.easyui.min.js"></script>  
-	<script type="text/javascript" src="js/jquery/easyui/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="js/jquery/easyui/jquery.edatagrid.js"></script>
+<link rel="stylesheet" type="text/css" href="../js/jquery/easyui/themes/default/easyui.css">  
+<link rel="stylesheet" type="text/css" href="../js/jquery/easyui/themes/icon.css">  
+<link rel="stylesheet" type="text/css" href="../js/jquery/easyui/demo/demo.css">  
+<script type="text/javascript" src="../js/jquery/easyui/jquery.min.js"></script>  
+<script type="text/javascript" src="../js/jquery/easyui/jquery.easyui.min.js"></script>  
+	<script type="text/javascript" src="../js/jquery/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../js/jquery/easyui/jquery.edatagrid.js"></script>
 	<script>
 	$(function(){
 		var treeData=[{
@@ -17,17 +17,12 @@
 			children:[{
 				text:"基本信息",
 				attributes:{
-					url:"goods.html",
+					url:"index.jsp",
 				}
 			},{
 				text:"商品信息",
 				attributes:{
 					url:"crud1.html",
-				}
-			},{
-				text:"测试信息",
-				attributes:{
-					url:"html/crud1.html",
 				}
 			}]
 		}];
@@ -50,7 +45,7 @@
 				$("#tabs").tabs('add',{
 					title:text,
 					closable:true,
-					content:content
+					content:content			
 				});				
 			}
 		}
@@ -64,8 +59,6 @@
 	             destroyUrl: 'userDelete'
 	         });
 	     });
-		 
-
 	</script>
 </head>
 <body class="easyui-layout">
@@ -80,7 +73,7 @@
         </div>
         <div data-options="region:'center'">		
 <div class="easyui-tabs" style="height:100%" id="tabs">
-		<div title="关于" data-options="tools:'#p-tools'" style="padding:10px">
+		<div title="关于" style="padding:10px">
     <table id="dg" title="用户管理" style="width:700px;height:365px"
             toolbar="#toolbar" pagination="true" idField="id"
             rownumbers="true" fitColumns="true" singleSelect="true">
@@ -121,10 +114,6 @@
 </div>
 </div>
 </div>
- <div id="p-tools">
-	        <a href="javascript:void(0)" class="icon-mini-add" onclick="alert('添加')"></a>
-	        <a href="javascript:void(0)" class="icon-mini-edit" onclick="alert('编辑')"></a>
-	        <a href="javascript:void(0)" class="icon-mini-refresh" onclick="javascript:alert('刷新')"></a>
-	    </div>
+
 </body>
 </html>

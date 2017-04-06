@@ -18,7 +18,9 @@ public class DBUtils {
 		
 		is = DBUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
 		try {
+			System.out.println("???");
 			props.load(is);
+			System.out.println("!!!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally{
@@ -42,11 +44,9 @@ public class DBUtils {
 			Class.forName((String)props.get("driver"));
 			//ip地址 + 数据库名称
 			conn = DriverManager.getConnection((String)props.get("url"), (String)props.get("username"), (String)props.get("password"));
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		} 
 		return conn;
 	}
 	

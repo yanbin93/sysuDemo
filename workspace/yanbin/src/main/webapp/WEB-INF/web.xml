@@ -114,6 +114,33 @@
 		<servlet-name>UserSaveServlet</servlet-name>
 		<servlet-class>com.demo.web.UserSaveServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>UserList</display-name>
+		<servlet-name>UserList</servlet-name>
+		<servlet-class>com.demo.web.UserList</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>GoodsListServlet</display-name>
+		<servlet-name>GoodsListServlet</servlet-name>
+		<servlet-class>com.demo.web.GoodsListServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>GoodsDeleteServlet</display-name>
+		<servlet-name>GoodsDeleteServlet</servlet-name>
+		<servlet-class>com.demo.web.GoodsDeleteServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<servlet-name>GoodsSaveServlet</servlet-name>
+		<servlet-class>com.demo.web.GoodsSaveServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -213,6 +240,22 @@
 	<servlet-mapping>
 		<servlet-name>UserSaveServlet</servlet-name>
 		<url-pattern>/userSave</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserList</servlet-name>
+		<url-pattern>/UserList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GoodsListServlet</servlet-name>
+		<url-pattern>/goodsList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GoodsDeleteServlet</servlet-name>
+		<url-pattern>/goodsDelete</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GoodsSaveServlet</servlet-name>
+		<url-pattern>/goodsSave</url-pattern>
 	</servlet-mapping>
 	 <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

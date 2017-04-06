@@ -1,3 +1,4 @@
+package com.bjsxt.base;
 package com.demo.dao;
 
 import java.sql.Connection;
