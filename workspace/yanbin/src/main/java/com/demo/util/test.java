@@ -5,6 +5,8 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.util.Properties;
 
+import model.GetProperties;
+
 public class test {
 	private static Properties props = new Properties();
 	static{
@@ -26,11 +28,12 @@ public class test {
 			}
 			}
 	}
+	static DBUtils dbutil =new DBUtils();
 public static void main(String[] args){
 	System.out.println((String)props.get("url")+(String)props.get("username")+(String)props.get("password"));
-	DBUtils dbutil =new DBUtils();
-	Connection con= dbutil.createConn();
-	if(con!=null){System.out.println("成功");}
+	Connection con=dbutil.createConn2();
+	String result = GetProperties.getProperties2("url", "jdbc.properties");
+	if(con!=null){System.out.println("成功 ");}
 	else{System.out.println("失败");}
 }
 

@@ -9,47 +9,36 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import model.GetProperties;
+
 public class DBUtils {
-	
-	private static Properties props = new Properties();
-	
-	static{
-		InputStream is = null;
-		
-		is = DBUtils.class.getClassLoader().getResourceAsStream("jdbc.properties");
-		try {
-			System.out.println("???");
-			props.load(is);
-			System.out.println("!!!");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally{
-			if(is!=null){
-				try {
-					is.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-	}
-	
 	
 		
 	//获得连接
-	public static Connection createConn(){
+	public  Connection createConn2(){
 		Connection conn = null; 
+		String name="/home/yanbin/workspace/yanbin/src/jdbc.properties";
+		GetProperties props=new GetProperties();
 		try {
-			Class.forName((String)props.get("driver"));
+			Class.forName(GetProperties.getProperties("driver",name));
 			//ip地址 + 数据库名称
-			conn = DriverManager.getConnection((String)props.get("url"), (String)props.get("username"), (String)props.get("password"));
+			conn = DriverManager.getConnection(props.getProperties("url", name),props.getProperties("username",name), GetProperties.getProperties("password",name));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		return conn;
 	}
-	
+	public  static Connection createConn(){
+		Connection conn = null; 
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			//ip地址 + 数据库名称
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/demo", "root", "0000");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return conn;
+	}
 	//编译执行
 	public static PreparedStatement getPs(Connection conn , String sql){
 		PreparedStatement ps = null; 

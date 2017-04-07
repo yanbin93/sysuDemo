@@ -8,9 +8,7 @@ private String other;
 private int product_id;
 public Goods(){
 }
-public Goods(int id, String name, String code, String other, int product_id) {
-	super();
-	this.id = id;
+public Goods(String name, String code, String other, int product_id) {
 	this.name = name;
 	this.code = code;
 	this.other = other;

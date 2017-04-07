@@ -15,6 +15,12 @@ public ResultSet list(Connection con,PageBean pageBean) throws Exception{
 	return pstmt.executeQuery();
 }
 
+public ResultSet idList(Connection con) throws Exception{
+	String sql="select id,CONCAT(id,' : ',goods_name) as cnt from goods";
+	PreparedStatement pstmt=con.prepareStatement(sql);
+	return pstmt.executeQuery();
+}
+
 public int count(Connection con)throws Exception{
 	String sql ="select count(*) as total from goods";
 	PreparedStatement pstmt=con.prepareStatement(sql);
@@ -42,12 +48,13 @@ public int add(Connection con,Goods goods)throws Exception{
 	return pstmt.executeUpdate();
 }
 public int modify(Connection con,Goods goods)throws Exception{
-	String sql="update goods set goods_name=?,goods_code=?,goods_other=?,products_products_id=? where goods_id=?";
+	String sql="update goods set goods_name=?,goods_code=?,goods_other=?,products_products_id=? where id=?";
 	PreparedStatement pstmt=con.prepareStatement(sql);
 	pstmt.setString(1, goods.getName());
 	pstmt.setString(2, goods.getCode());
 	pstmt.setString(3, goods.getOther());
 	pstmt.setInt(4,goods.getProduct_id());
+	pstmt.setInt(5,goods.getId());
 	return pstmt.executeUpdate();
 }
 
