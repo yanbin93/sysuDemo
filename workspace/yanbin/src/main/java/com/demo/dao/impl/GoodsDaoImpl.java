@@ -48,7 +48,7 @@ public int add(Connection con,Goods goods)throws Exception{
 	return pstmt.executeUpdate();
 }
 public int modify(Connection con,Goods goods)throws Exception{
-	String sql="update goods set goods_name=?,goods_code=?,goods_other=?,products_products_id=? where id=?";
+	String sql="update goods set goods_name=?,goods_code=?,goods_other=?,products_id=? where id=?";
 	PreparedStatement pstmt=con.prepareStatement(sql);
 	pstmt.setString(1, goods.getName());
 	pstmt.setString(2, goods.getCode());

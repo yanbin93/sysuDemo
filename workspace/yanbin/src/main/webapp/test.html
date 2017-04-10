@@ -18,7 +18,9 @@
 	             updateUrl: 'goodsSave',
 	             destroyUrl: 'goodsDelete'
 	         });
+	        
 	     });
+		 
 	</script>
 </head>
 <body>
@@ -29,15 +31,22 @@
             <tr>
                 <th field="goods_name" width="50" editor="{type:'validatebox',options:{required:true}}">商品名称</th>
                 <th field="goods_code" width="50" editor="{type:'validatebox',options:{required:true}}">商品编号</th>
-                <th field="goods_other" width="50" editor="{type:'validatebox',options:{validType:'email',required:true}}">商品备注</th>
-                <th field="products_products_id" width="50" editor="{type:'validatebox',options:{required:true}}">产品批次号</th>
+                <th field="goods_other" width="50" editor="{type:'validatebox',options:{required:true}}">商品备注</th>
+                <th field="products_id" width="50" editor="{
+	                            type:'combobox',
+	                            options:{
+	                                valueField:'id',
+	                                textField:'cnt',
+	                                url:'productsList?type=idlist',
+	                                required:true
+	                            }}">产品批次号</th>
             </tr>
         </thead>
     </table>
     
     <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">添加用户</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除用户</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">添加</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">撤销</a>
     </div>

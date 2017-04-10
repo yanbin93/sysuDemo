@@ -32,7 +32,7 @@ public class GoodsSaveServlet extends HttpServlet {
 		String name=request.getParameter("goods_name");
 		String code=request.getParameter("goods_code");
 		String other=request.getParameter("goods_other");
-		String products_id=request.getParameter("products_products_id");
+		String products_id=request.getParameter("products_id");
 		String id=request.getParameter("id");
 		
 		Goods goods=new Goods(name, code, other,Integer.parseInt(products_id));

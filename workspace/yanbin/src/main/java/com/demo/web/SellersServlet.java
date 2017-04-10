@@ -1,7 +1,6 @@
 package com.demo.web;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 
 import javax.servlet.ServletException;
@@ -9,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.demo.dao.impl.*;
+import com.demo.dao.impl.SellersDaoImpl;
 import com.demo.factory.DAOFactory;
 import com.demo.model.PageBean;
-import com.demo.model.Products;
+import com.demo.model.Sellers;
 import com.demo.util.DBUtils;
 import com.demo.util.JsonUtil;
 import com.demo.util.ResponseUtil;
@@ -21,18 +20,15 @@ import com.demo.util.StringUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-/**
- * Servlet implementation class ProductsListServlet
- */
-public class ProductsListServlet extends HttpServlet {
+public class SellersServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	DBUtils dbUtil = new DBUtils();
-	ProductsDaoImpl productsDao = DAOFactory.getProductsDaoInstance();
+	SellersDaoImpl sellersDao = DAOFactory.getSellersDaoInstance();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProductsListServlet() {
+	public SellersServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -54,12 +50,7 @@ public class ProductsListServlet extends HttpServlet {
 				list(request, response);
 			}
 			if (type.equals("save")) {
-				try {
 					save(request, response);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 			if (type.equals("delete")) {
 				delete(request, response);
@@ -85,7 +76,7 @@ public class ProductsListServlet extends HttpServlet {
 		try {
 			System.out.println("connection succses");
 			JSONObject result = new JSONObject();
-			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(productsDao.idList(con));
+			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(sellersDao.idList(con));
 			System.out.println(jsonArray);
 			System.out.println(result);
 			// response.setHeader("Access-Control-Allow-Origin", "*");
@@ -113,9 +104,9 @@ public class ProductsListServlet extends HttpServlet {
 		try {
 			System.out.println("connection succses");
 			JSONObject result = new JSONObject();
-			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(productsDao.list(con, pageBean));
+			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(sellersDao.list(con, pageBean));
 			System.out.println(jsonArray);
-			int total = productsDao.count(con);
+			int total = sellersDao.count(con);
 			System.out.println(total);
 			result.put("rows", jsonArray);
 			result.put("total", total);
@@ -133,17 +124,19 @@ public class ProductsListServlet extends HttpServlet {
 		}
 	}
 
-	protected void save(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void save(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
-		String name = request.getParameter("products_name");
-		String other = request.getParameter("products_other");
-		int manufacturer_id = Integer.parseInt(request.getParameter("manufacturer_id"));
-		int seller_id = Integer.parseInt(request.getParameter("seller_id"));
-		int supplier_id = Integer.parseInt(request.getParameter("supplier_id"));
-
-		Products products = new Products(name, other, manufacturer_id, seller_id, supplier_id);
+		String name = request.getParameter("seller_name");
+		String permit = request.getParameter("seller_permit");
+		String code=request.getParameter("seller_code");
+		String address=request.getParameter("seller_address");
+		String phone=request.getParameter("seller_phone");
+		String mail=request.getParameter("seller_mail");
+		String contact=request.getParameter("seller_contact");
+		String other=request.getParameter("seller_other");
+		Sellers sellers = new Sellers(name, permit,code,address,phone,mail,contact,other);
 		if (StringUtil.isNotEmpty(id)) {
-			products.setId(Integer.parseInt(id));
+			sellers.setId(Integer.parseInt(id));
 		}
 		Connection con = null;
 		try {
@@ -151,9 +144,9 @@ public class ProductsListServlet extends HttpServlet {
 			con = dbUtil.createConn();
 			JSONObject result = new JSONObject();
 			if (StringUtil.isNotEmpty(id)) {
-				saveNums = productsDao.modify(con, products);
+				saveNums = sellersDao.modify(con, sellers);
 			} else {
-				saveNums = productsDao.add(con, products);
+				saveNums = sellersDao.add(con, sellers);
 			}
 			if (saveNums == 1) {
 				result.put("success", "true");
@@ -161,7 +154,7 @@ public class ProductsListServlet extends HttpServlet {
 				result.put("success", "true");
 				result.put("errorMsg", "保存失败");
 			}
-			result.put("data", products);
+			result.put("data", sellers);
 			ResponseUtil.write(response, result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -185,7 +178,7 @@ protected void delete(HttpServletRequest request,HttpServletResponse response){
 		String[] ids=delId.split(",");
 		int delNums=0;
 		for (String id:ids){
-		delNums+=productsDao.delete(con, id);
+		delNums+=sellersDao.delete(con, id);
 		}
 		if(delNums>=1){
 			result.put("success", "true");
@@ -207,3 +200,4 @@ protected void delete(HttpServletRequest request,HttpServletResponse response){
 	
 }
 }
+

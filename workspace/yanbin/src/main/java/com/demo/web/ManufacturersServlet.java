@@ -1,7 +1,6 @@
 package com.demo.web;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 
 import javax.servlet.ServletException;
@@ -9,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.demo.dao.impl.*;
+import com.demo.dao.impl.ManufacturersDaoImpl;
 import com.demo.factory.DAOFactory;
 import com.demo.model.PageBean;
-import com.demo.model.Products;
+import com.demo.model.Manufacturers;
 import com.demo.util.DBUtils;
 import com.demo.util.JsonUtil;
 import com.demo.util.ResponseUtil;
@@ -22,20 +21,16 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
- * Servlet implementation class ProductsListServlet
+ * Servlet implementation class ManufacturersServlet
  */
-public class ProductsListServlet extends HttpServlet {
+public class ManufacturersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DBUtils dbUtil = new DBUtils();
-	ProductsDaoImpl productsDao = DAOFactory.getProductsDaoInstance();
+	ManufacturersDaoImpl manufacturersDao = DAOFactory.getManufacturersDaoInstance();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProductsListServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -54,12 +49,7 @@ public class ProductsListServlet extends HttpServlet {
 				list(request, response);
 			}
 			if (type.equals("save")) {
-				try {
 					save(request, response);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 			if (type.equals("delete")) {
 				delete(request, response);
@@ -85,7 +75,7 @@ public class ProductsListServlet extends HttpServlet {
 		try {
 			System.out.println("connection succses");
 			JSONObject result = new JSONObject();
-			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(productsDao.idList(con));
+			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(manufacturersDao.idList(con));
 			System.out.println(jsonArray);
 			System.out.println(result);
 			// response.setHeader("Access-Control-Allow-Origin", "*");
@@ -113,9 +103,9 @@ public class ProductsListServlet extends HttpServlet {
 		try {
 			System.out.println("connection succses");
 			JSONObject result = new JSONObject();
-			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(productsDao.list(con, pageBean));
+			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(manufacturersDao.list(con, pageBean));
 			System.out.println(jsonArray);
-			int total = productsDao.count(con);
+			int total = manufacturersDao.count(con);
 			System.out.println(total);
 			result.put("rows", jsonArray);
 			result.put("total", total);
@@ -133,17 +123,21 @@ public class ProductsListServlet extends HttpServlet {
 		}
 	}
 
-	protected void save(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected void save(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
-		String name = request.getParameter("products_name");
-		String other = request.getParameter("products_other");
-		int manufacturer_id = Integer.parseInt(request.getParameter("manufacturer_id"));
-		int seller_id = Integer.parseInt(request.getParameter("seller_id"));
-		int supplier_id = Integer.parseInt(request.getParameter("supplier_id"));
-
-		Products products = new Products(name, other, manufacturer_id, seller_id, supplier_id);
+		String name = request.getParameter("manufacturer_name");
+		String code=request.getParameter("manufacturer_code");
+		String manufacture_type=request.getParameter("manufacturer_type");
+		String permit_pic = request.getParameter("manufacturer_permit_pic");
+		String permit_range = request.getParameter("manufacturer_permit_range");
+		String permit_starttime = request.getParameter("manufacturer_permit_starttime");
+		String permit_endtime = request.getParameter("manufacturer_permit_endtime");
+		int seller_id =Integer.parseInt(request.getParameter("seller_id"));
+		int supplier_id =Integer.parseInt(request.getParameter("supplier_id"));
+		String other =request.getParameter("manufactuer_other");
+		Manufacturers manufacturers = new Manufacturers(name, code, manufacture_type, permit_starttime, permit_endtime, permit_range, permit_pic, other, seller_id, supplier_id);
 		if (StringUtil.isNotEmpty(id)) {
-			products.setId(Integer.parseInt(id));
+			manufacturers.setId(Integer.parseInt(id));
 		}
 		Connection con = null;
 		try {
@@ -151,9 +145,9 @@ public class ProductsListServlet extends HttpServlet {
 			con = dbUtil.createConn();
 			JSONObject result = new JSONObject();
 			if (StringUtil.isNotEmpty(id)) {
-				saveNums = productsDao.modify(con, products);
+				saveNums = manufacturersDao.modify(con, manufacturers);
 			} else {
-				saveNums = productsDao.add(con, products);
+				saveNums = manufacturersDao.add(con, manufacturers);
 			}
 			if (saveNums == 1) {
 				result.put("success", "true");
@@ -161,7 +155,7 @@ public class ProductsListServlet extends HttpServlet {
 				result.put("success", "true");
 				result.put("errorMsg", "保存失败");
 			}
-			result.put("data", products);
+			result.put("data", manufacturers);
 			ResponseUtil.write(response, result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -185,7 +179,7 @@ protected void delete(HttpServletRequest request,HttpServletResponse response){
 		String[] ids=delId.split(",");
 		int delNums=0;
 		for (String id:ids){
-		delNums+=productsDao.delete(con, id);
+		delNums+=manufacturersDao.delete(con, id);
 		}
 		if(delNums>=1){
 			result.put("success", "true");

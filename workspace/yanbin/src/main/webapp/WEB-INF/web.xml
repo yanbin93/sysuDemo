@@ -148,6 +148,18 @@
 		<servlet-name>ProductsListServlet</servlet-name>
 		<servlet-class>com.demo.web.ProductsListServlet</servlet-class>
 	</servlet>
+		<servlet>
+		<display-name>ProductsListServlet</display-name>
+		<servlet-name>SellersServlet</servlet-name>
+		<servlet-class>com.demo.web.SellersServlet</servlet-class>
+	</servlet>
+		<servlet>
+			<description>
+			</description>
+			<display-name>ManufacturersServlet</display-name>
+			<servlet-name>ManufacturersServlet</servlet-name>
+			<servlet-class>com.demo.web.ManufacturersServlet</servlet-class>
+		</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -267,6 +279,14 @@
 	<servlet-mapping>
 		<servlet-name>ProductsListServlet</servlet-name>
 		<url-pattern>/productsList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SellersServlet</servlet-name>
+		<url-pattern>/sellersServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ManufacturersServlet</servlet-name>
+		<url-pattern>/manufacturersServlet</url-pattern>
 	</servlet-mapping>
 	 <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
