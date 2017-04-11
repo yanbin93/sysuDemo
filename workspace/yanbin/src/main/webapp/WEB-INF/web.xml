@@ -167,6 +167,13 @@
 			<servlet-name>SuppliersServlet</servlet-name>
 			<servlet-class>com.demo.web.SuppliersServlet</servlet-class>
 		</servlet>
+		<servlet>
+			<description>
+			</description>
+			<display-name>CheckUserServlet</display-name>
+			<servlet-name>CheckUserServlet</servlet-name>
+			<servlet-class>com.demo.web.CheckUserServlet</servlet-class>
+		</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -298,6 +305,10 @@
 	<servlet-mapping>
 		<servlet-name>SuppliersServlet</servlet-name>
 		<url-pattern>/suppliersServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CheckUserServlet</servlet-name>
+		<url-pattern>/checkUser</url-pattern>
 	</servlet-mapping>
 	 <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

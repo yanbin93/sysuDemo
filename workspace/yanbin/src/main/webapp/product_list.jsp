@@ -77,7 +77,7 @@ String dirname=request.getParameter("dirname");
 								out.print("<a class=\"navbar-brand\" href=FindFile?dirname=/hadoop>前往文件系统</a>");
 							}
 					%>
-			
+					
 					</div>
 							<div>
 					<form class="navbar-form navbar-right" role="search" action="FindProduct2" method="post">
@@ -86,6 +86,7 @@ String dirname=request.getParameter("dirname");
 							</div>
 							<button type="submit" class="btn btn-default">Search</button>
 									<a href="ProductList">返回</a>
+									<a class="navbar-brand" href=demo.html>前往企业管理端</a>
 						</form>
           </div>			
 				</div>
