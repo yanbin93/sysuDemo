@@ -160,6 +160,13 @@
 			<servlet-name>ManufacturersServlet</servlet-name>
 			<servlet-class>com.demo.web.ManufacturersServlet</servlet-class>
 		</servlet>
+		<servlet>
+			<description>
+			</description>
+			<display-name>SuppliersServlet</display-name>
+			<servlet-name>SuppliersServlet</servlet-name>
+			<servlet-class>com.demo.web.SuppliersServlet</servlet-class>
+		</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -287,6 +294,10 @@
 	<servlet-mapping>
 		<servlet-name>ManufacturersServlet</servlet-name>
 		<url-pattern>/manufacturersServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SuppliersServlet</servlet-name>
+		<url-pattern>/suppliersServlet</url-pattern>
 	</servlet-mapping>
 	 <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

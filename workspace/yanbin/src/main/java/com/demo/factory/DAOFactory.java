@@ -15,4 +15,7 @@ public class DAOFactory {
 	public static ManufacturersDaoImpl getManufacturersDaoInstance(){
 		return new ManufacturersDaoImpl();
 	}
+	public static SuppliersDaoImpl getSuppliersDaoInstance(){
+		return new SuppliersDaoImpl();
+	}
 }

@@ -25,6 +25,11 @@
 					url:"products.html",
 				}
 			},{
+				text:"供应商信息",
+				attributes:{
+					url:"suppliers.html",
+				}
+			},{
 				text:"销售商信息",
 				attributes:{
 					url:"sellers.html",
@@ -33,16 +38,6 @@
 				text:"生产商信息",
 				attributes:{
 					url:"manufacturers.html",
-				}
-			},{
-				text:"用户信息",
-				attributes:{
-					url:"crud1.html",
-				}
-			},{
-				text:"测试信息",
-				attributes:{
-					url:"html/crud1.html",
 				}
 			}]
 		}];
@@ -60,15 +55,27 @@
 		function openTab(text,url){
 			if($("#tabs").tabs('exists',text)){
 				$("#tabs").tabs('select',text);
+				var selTab = $('#tabs').tabs('getSelected'); 
+			      $('#tabs').tabs('update', { 
+			        tab: selTab, 
+			        options: { 
+			          content:"<iframe scrolling='auto' frameborder='0' src="+ url+" style='width:100%;height:100%;'></iframe>"
+			        } 
+			      });
 			}else{
 				var content="<iframe frameborder='0' scrolling='auto' style='width:100%;height:100%;' src="+url+"></iframe>";
 				$("#tabs").tabs('add',{
 					title:text,
 					closable:true,
-					content:content
+					content:content,
+					 tools: [{
+                         iconCls: 'icon-mini-refresh'
+                        
+					 }]
 				});				
 			}
-		}
+		};
+
 	});
 	
 		 $(function(){
@@ -85,12 +92,11 @@
 </head>
 <body class="easyui-layout">
     	<div data-options="region:'north'" style="height:100px;background-color:#F9F7F8">
-    
     		<div  class="header" style="position:relative;width:1500px; height:80px">
-    			<span style="position:absolute; top:25; left:400">欢迎来到防伪溯源系统</span>
+    			<span styple="width:100%; position:absolute; bottom:0; text-align:center;"><h1>欢迎来到防伪溯源系统</h1></span>
     		</div>
     			</div>
-    <div data-options="region:'west',split:true" title="导航菜单" style="width:1000px;">
+    <div data-options="region:'west',split:true" title="导航菜单" style="width:300px;">
         	<ul id="tree" class="easyui-tree" ></ul>
         </div>
         <div data-options="region:'center'">		
@@ -139,7 +145,7 @@
  <div id="p-tools">
 	        <a href="javascript:void(0)" class="icon-mini-add" onclick="alert('添加')"></a>
 	        <a href="javascript:void(0)" class="icon-mini-edit" onclick="alert('编辑')"></a>
-	        <a href="javascript:void(0)" class="icon-mini-refresh" onclick="javascript:alert('刷新')"></a>
+	        <a href="javascript:void(0)" class="icon-mini-refresh" onclick="javascript:openTab()"></a>
 	    </div>
 </body>
 </html>

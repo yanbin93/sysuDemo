@@ -1,0 +1,152 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>tabs 右键菜单demo QQ交流群：15129679</title>
+    <link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/default/easyui.css">  
+<link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/icon.css">  
+<link rel="stylesheet" type="text/css" href="js/jquery/easyui/demo/demo.css">  
+<script type="text/javascript" src="js/jquery/easyui/jquery.min.js"></script>  
+<script type="text/javascript" src="js/jquery/easyui/jquery.easyui.min.js"></script>  
+	<script type="text/javascript" src="js/jquery/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="js/jquery/easyui/jquery.edatagrid.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery/zTree/zTreeStyle/zTreeStyle.css"/>
+    <script type="text/javascript" src="js/jquery/zTree/jquery.ztree.min.js"></script>
+</head>
+<body class="easyui-layout">
+<div data-options="region:'north',border:false" style="height: 60px; padding: 10px">
+    tabs 右键菜单demo QQ：15129679
+</div>
+<div data-options="region:'west',split:true,title:'操作菜单'" style="width: 150px; padding: 10px;">
+    <ul id="webMenu_list" class="ztree" style="display: ;">
+    </ul>
+</div>
+<div data-options="region:'center',title:'',border:false">
+    <div id="tt" class="easyui-tabs" data-options="fit:true">
+        <div title="首页" style="padding: 20px;">
+            <h3>
+                欢迎您来到网站信息管理系统<br>
+                我的博客地址:http://www.cnblogs.com/yeminglong/p/3745914.html
+
+            </h3>
+        </div>
+    </div>
+</div>
+<div id="mm" class="easyui-menu" style="width:120px;">
+    <div id="mm-tabclosrefresh" data-options="name:6">刷新</div>
+    <div id="mm-tabclose" data-options="name:1">关闭</div>
+    <div id="mm-tabcloseall" data-options="name:2">全部关闭</div>
+    <div id="mm-tabcloseother" data-options="name:3">除此之外全部关闭</div>
+    <div class="menu-sep"></div>
+    <div id="mm-tabcloseright" data-options="name:4">当前页右侧全部关闭</div>
+    <div id="mm-tabcloseleft" data-options="name:5">当前页左侧全部关闭</div>
+</div>
+<script type="text/javascript">
+
+
+    //添加Tabs
+    function addTabs(event, treeId, treeNode, clickFlag) {
+        if (!$("#tt").tabs('exists', treeNode.name)) {
+            $('#tt').tabs('add', {
+                id: treeId,
+                title: treeNode.name,
+                selected: true,
+                href: treeNode.dataurl,
+                closable: true
+            });
+        } else $('#tt').tabs('select', treeNode.name);
+    }
+
+    //删除Tabs
+    function closeTab(menu, type) {
+        var allTabs = $("#tt").tabs('tabs');
+        var allTabtitle = [];
+        $.each(allTabs, function (i, n) {
+            var opt = $(n).panel('options');
+            if (opt.closable)
+                allTabtitle.push(opt.title);
+        });
+        var curTabTitle = $(menu).data("tabTitle");
+        var curTabIndex = $("#tt").tabs("getTabIndex", $("#tt").tabs("getTab", curTabTitle));
+        switch (type) {
+            case 1:
+                $("#tt").tabs("close", curTabIndex);
+                return false;
+                break;
+            case 2:
+                for (var i = 0; i < allTabtitle.length; i++) {
+                    $('#tt').tabs('close', allTabtitle[i]);
+                }
+                break;
+            case 3:
+                for (var i = 0; i < allTabtitle.length; i++) {
+                    if (curTabTitle != allTabtitle[i])
+                        $('#tt').tabs('close', allTabtitle[i]);
+                }
+                $('#tt').tabs('select', curTabTitle);
+                break;
+            case 4:
+                for (var i = curTabIndex; i < allTabtitle.length; i++) {
+                    $('#tt').tabs('close', allTabtitle[i]);
+                }
+                $('#tt').tabs('select', curTabTitle);
+                break;
+            case 5:
+                for (var i = 0; i < curTabIndex-1; i++) {
+                    $('#tt').tabs('close', allTabtitle[i]);
+                }
+                $('#tt').tabs('select', curTabTitle);
+                break;
+            case 6: //刷新
+                var panel = $("#tt").tabs("getTab", curTabTitle).panel("refresh");
+                break;
+        }
+    }
+
+    $(document).ready(function () {
+        //监听右键事件，创建右键菜单
+        $('#tt').tabs({
+            onContextMenu: function (e, title, index) {
+                e.preventDefault();
+                if (index > 0) {
+                    $('#mm').menu('show', {
+                        left: e.pageX,
+                        top: e.pageY
+                    }).data("tabTitle", title);
+                }
+            }
+        });
+        //右键菜单click
+        $("#mm").menu({
+            onClick: function (item) {
+                closeTab(this, item.name);
+            }
+        });
+        //treeNodes
+        var zNodes = [
+            {id: 1, pId: 0, name: "操作菜单", open: true, url: "", click: false},
+            {id: 11, pId: 1, name: "商品管理", dataurl: "goods.html", target: "_self"},
+            {id: 12, pId: 1, name: "产品管理", dataurl: "products.html", target: "_self"},
+            {id: 13, pId: 1, name: "销售商管理", dataurl: "sellers.html", target: "_self"},
+            {id: 14, pId: 1, name: "供应商管理", dataurl: "suppliers.html", target: "_self"},
+            {id: 15, pId: 1, name: "生产商管理", dataurl: "manufacturers.html", target: "_self"},
+            {id: 16, pId: 1, name: "杨凌农产品标准化生产溯源管理系统", dataurl: "02.html", target: "_self"},
+            {id: 17, pId: 1, name: "站点列表", dataurl: ".html", target: "_self"},
+            {id: 18, pId: 1, name: "站点列表", dataurl: "02.html", target: "_self"}
+        ];
+
+        var setting = {
+            view: {
+                selectedMulti: false
+            },
+            callback: {
+                onClick: addTabs
+            }
+        };
+
+        $.fn.zTree.init($("#webMenu_list"), setting, zNodes);
+
+    });
+</script>
+</body>
+</html>
