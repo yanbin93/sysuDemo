@@ -188,6 +188,13 @@
 			<servlet-name>StocksServlet</servlet-name>
 			<servlet-class>com.demo.web.StocksServlet</servlet-class>
 		</servlet>
+				<servlet>
+			<description>
+			</description>
+			<display-name>Records_checkServlet</display-name>
+			<servlet-name>Records_checkServlet</servlet-name>
+			<servlet-class>com.demo.web.Records_checkServlet</servlet-class>
+		</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -326,11 +333,15 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>MaterialsServlet</servlet-name>
-		<url-pattern>/MaterialsServlet</url-pattern>
+		<url-pattern>/materialsServlet</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>StocksServlet</servlet-name>
-		<url-pattern>/StocksServlet</url-pattern>
+		<url-pattern>/stocksServlet</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>records_checkServlet</servlet-name>
+		<url-pattern>/records_checkServlet</url-pattern>
 	</servlet-mapping>
 	 <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
