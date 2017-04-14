@@ -174,6 +174,20 @@
 			<servlet-name>CheckUserServlet</servlet-name>
 			<servlet-class>com.demo.web.CheckUserServlet</servlet-class>
 		</servlet>
+		<servlet>
+			<description>
+			</description>
+			<display-name>MaterialsServlet</display-name>
+			<servlet-name>MaterialsServlet</servlet-name>
+			<servlet-class>com.demo.web.MaterialsServlet</servlet-class>
+		</servlet>
+		<servlet>
+			<description>
+			</description>
+			<display-name>StocksServlet</display-name>
+			<servlet-name>StocksServlet</servlet-name>
+			<servlet-class>com.demo.web.StocksServlet</servlet-class>
+		</servlet>
 	<servlet-mapping>
 		<servlet-name>FindServlet</servlet-name>
 		<url-pattern>/FindServlet</url-pattern>
@@ -309,6 +323,14 @@
 	<servlet-mapping>
 		<servlet-name>CheckUserServlet</servlet-name>
 		<url-pattern>/checkUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MaterialsServlet</servlet-name>
+		<url-pattern>/MaterialsServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StocksServlet</servlet-name>
+		<url-pattern>/StocksServlet</url-pattern>
 	</servlet-mapping>
 	 <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

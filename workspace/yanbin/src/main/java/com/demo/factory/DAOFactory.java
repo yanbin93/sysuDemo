@@ -18,4 +18,10 @@ public class DAOFactory {
 	public static SuppliersDaoImpl getSuppliersDaoInstance(){
 		return new SuppliersDaoImpl();
 	}
+	public static MaterialsDaoImpl getMaterialsDaoInstance(){
+		return new MaterialsDaoImpl();
+	}
+	public static StocksDaoImpl getStocksDaoInstance(){
+		return new StocksDaoImpl();
+	}
 }
