@@ -127,7 +127,7 @@ public class StocksServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String name = request.getParameter("stocks_name");
 		String code=request.getParameter("stocks_code");
-		String person=request.getParameter("person");
+		String person=request.getParameter("stocks_person");
 		String data=request.getParameter("stocks_data");
 		String quantity = request.getParameter("stocks_quantity");
 		String checkresult=request.getParameter("stocks_checkresult");

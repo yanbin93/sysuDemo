@@ -13,47 +13,48 @@
     <script>
    $(function(){
            $('#dg').edatagrid({
-               url: 'manufacturersServlet?type=list',
-               saveUrl: 'manufacturersServlet?type=save',
-               updateUrl: 'manufacturersServlet?type=save',
-               destroyUrl: 'manufacturersServlet?type=delete'
+               url: 'records_checkServlet?type=list',
+               saveUrl: 'records_checkServlet?type=save',
+               updateUrl: 'records_checkServlet?type=save',
+               destroyUrl: 'records_checkServlet?type=delete'
            });
    });     
     </script>
 </head>
 <body>
-    <table id="dg" title="生产商管理" class="easyui-datagrid"
+    <table id="dg" title="生产管理" class="easyui-datagrid"
             toolbar="#toolbar" pagination="true" idField="id" 
             rownumbers="true" fitColumns="true" singleSelect="false" >
         <thead>
             <tr>
             	<th data-options="field:'ck',checkbox:true"></th>
-                <th field="manufacturer_name" width="50" editor="{type:'validatebox',options:{required:true}}" >生厂商名称</th>
-                  <th field="manufacturer_code" width="50"editor="{type:'validatebox',options:{required:true}}" >生厂商代号</th>
-                  <th field="manufacturer_type" width="50"editor="{type:'validatebox',options:{required:true}}" >生厂商类型</th>
-                  
-                  <th field="manufacturer_permit_starttime" width="50" editor="datebox" >生厂许可起始时间</th>
-      
-                  <th field="manufacturer_permit_endtime" width="50" editor="datebox" >生厂许可起始时间</th>
-                  <th field="manufacturer_permit_range" width="50"  editor="{type:'validatebox',options:{required:true}}" >生厂许可范围</th>
-                    <th field="manufacturer_permit_pic" width="50" editor="{type:'validatebox',options:{required:true}}" >生厂许可证</th>
-                <th field="manufacturer_other" width="50" editor="{type:'validatebox',options:{required:false}}">生厂商备注</th>
-                <th field="seller_id" width="50" editor="{
+                <th field="check_name" width="50" editor="{type:'validatebox',options:{required:true}}" >检验项</th>
+                <th data-options="field:'check_results',width:100,
+						formatter:function(value,row){
+							return row.check_results;
+						},
+						editor:{
+							type:'combobox',
+							options:{
+								valueField:'checkresult',
+								textField:'checkresult',
+								url:'json/records_check.json',
+								required:'true',
+								panelHeight:'auto'
+							}
+						}">检验结果</th>
+        
+                    <th field="products_id" width="50"  editor="{
                               type:'combobox',
                               options:{
                                   valueField:'id',
                                   textField:'cnt',
-                                  url:'sellersServlet?type=idlist',
-                                  required:true
-                              }}">销售商Id</th>
-                <th field="supplier_id" width="50" editor="{
-                              type:'combobox',
-                              options:{
-                                  valueField:'id',
-                                  textField:'cnt',
-                                  url:'suppliersServlet?type=idlist',
-                                  required:true
-                              }}">供应商Id</th>
+                                  url:'productsList?type=idlist',
+                                  required:'true',
+                                  panelHeight:'auto'
+                              }}"> 批次号</th>
+  
+  
                 
   
         </thead>

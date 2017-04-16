@@ -50,7 +50,7 @@ public class MaterialsDaoImpl implements MaterialsDao{
 		return pstmt.executeUpdate();
 	}
 	public int modify(Connection con,Materials materials)throws Exception{
-		String sql="update materials set materials_name=?,materials_quantity=?,stocks_id=?,prodcuts_id=? where id=?";
+		String sql="update materials set materials_name=?,materials_quantity=?,stocks_id=?,products_id=? where id=?";
 		PreparedStatement pstmt=con.prepareStatement(sql);
 		pstmt.setString(1, materials.getName());
 		pstmt.setString(2, materials.getQuantity());

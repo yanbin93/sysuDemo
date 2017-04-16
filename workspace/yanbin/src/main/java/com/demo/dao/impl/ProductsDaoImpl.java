@@ -24,6 +24,24 @@ public ResultSet idList(Connection con) throws Exception{
 	return pstmt.executeQuery();
 }
 
+public ResultSet query(Connection con,String sql) throws Exception{
+	PreparedStatement pstmt=con.prepareStatement(sql);
+	return pstmt.executeQuery();
+}
+
+public ResultSet idSearch(Connection con,int id) throws Exception{
+	String sql="select * from products where id=?";
+	PreparedStatement pstmt=con.prepareStatement(sql);
+	pstmt.setInt(1,id);
+	return pstmt.executeQuery();
+}
+public ResultSet nameSearch(Connection con,String name) throws Exception{
+	String sql="select * from products where products_name=?";
+	PreparedStatement pstmt=con.prepareStatement(sql);
+	pstmt.setString(1,name);
+	return pstmt.executeQuery();
+}
+
 public int count(Connection con)throws Exception{
 	String sql ="select count(*) as total from products";
 	PreparedStatement pstmt=con.prepareStatement(sql);
