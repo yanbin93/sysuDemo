@@ -18,7 +18,12 @@ public ResultSet list(Connection con,PageBean pageBean) throws Exception{
 	pstmt.setInt(2,pageBean.getRows());
 	return pstmt.executeQuery();
 }
-
+public ResultSet idSearch(Connection con,int id) throws Exception{
+	String sql="select * from suppliers where id=?";
+	PreparedStatement pstmt=con.prepareStatement(sql);
+	pstmt.setInt(1,id);
+	return pstmt.executeQuery();
+}
 public ResultSet idList(Connection con) throws Exception{
 	String sql="select id ,CONCAT(id,' : ',supplier_name) as cnt from suppliers";
 	PreparedStatement pstmt=con.prepareStatement(sql);

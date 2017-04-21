@@ -14,6 +14,12 @@ public ResultSet list(Connection con,PageBean pageBean) throws Exception{
 	pstmt.setInt(2,pageBean.getRows());
 	return pstmt.executeQuery();
 }
+public ResultSet goodsidSearch(Connection con,String goodscode) throws Exception{
+	String sql = "select products_id from goods where goods_code=?";
+	PreparedStatement pstmt=con.prepareStatement(sql);
+	pstmt.setString(1, goodscode);
+	return pstmt.executeQuery();
+}
 
 public ResultSet idList(Connection con) throws Exception{
 	String sql="select id,CONCAT(id,' : ',goods_name) as cnt from goods";

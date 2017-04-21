@@ -22,7 +22,14 @@ public class ManufacturersDaoImpl implements ManufacturersDao{
 		PreparedStatement pstmt=con.prepareStatement(sql);
 		return pstmt.executeQuery();
 	}
-
+	
+	public ResultSet idSearch(Connection con,int id) throws Exception{
+		String sql="select * from manufacturers where id=?";
+		PreparedStatement pstmt=con.prepareStatement(sql);
+		pstmt.setInt(1,id);
+		return pstmt.executeQuery();
+	}
+	
 	public int count(Connection con)throws Exception{
 		String sql ="select count(*) as total from manufacturers";
 		PreparedStatement pstmt=con.prepareStatement(sql);

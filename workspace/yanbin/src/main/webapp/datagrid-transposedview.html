@@ -1,0 +1,50 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>jQuery EasyUI</title>
+    <link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/default/easyui.css">  
+<link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/icon.css">  
+<link rel="stylesheet" type="text/css" href="js/jquery/easyui/demo/demo.css">  
+<script type="text/javascript" src="js/jquery/easyui/jquery.min.js"></script>  
+<script type="text/javascript" src="js/jquery/easyui/jquery.easyui.min.js"></script>  
+    <script type="text/javascript" src="js/jquery/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="http://www.jeasyui.com/easyui/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="js/jquery/easyui/jquery.edatagrid.js"></script>
+	<script type="text/javascript" src="js/jquery-easyui-1.3.1/datagrid-transposedview.js"></script>
+	<script>
+		$(function(){
+			$('#tt').datagrid({
+				showHeader:true,
+				view:transposedview,
+				
+				url:"productsList?type=idsearch&searchid=1",
+				columns:[[
+					{field:'id',title:'Year',align:'right'},
+					{field:'products_name',title:'Product ID',align:'right'},
+					{field:'Service sales',title:'List Price',align:'right'},
+					{field:'Total Operating Revenue',title:'Total Operating Revenue',align:'right'},
+					{field:'Cost of goods sold',title:'Unit Cost',align:'right'},
+					{field:'Gross Profit',title:'Gross Profit',align:'right'},
+					{field:'Rent',title:'Attribute',align:'right'},
+					{field:'Insurance',title:'Status',align:'right'},
+					{field:'Office suppliese',title:'Office suppliese',align:'right'},
+					{field:'Utilities',title:'Utilities',align:'right'},
+					{field:'Total Overhead',title:'Total Overhead',align:'right'},
+					{field:'Operating Income',title:'Operating Income',align:'right'},
+					{field:'Loan interest',title:'Loan interest',align:'right'},
+					{field:'Earnings Before Income Taxes',title:'Earnings Before Income Taxes',align:'right'},
+					{field:'Income Taxes',title:'Income Taxes',align:'right'},
+					{field:'Net Earnings',title:'Net Earnings',align:'right'}
+				]]
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>DataGrid - TransposedView</h1>
+	
+	<table id="tt"></table>
+</body>
+</html>

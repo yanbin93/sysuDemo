@@ -3,6 +3,8 @@ package com.demo.web;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +30,7 @@ public class ProductsListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DBUtils dbUtil = new DBUtils();
 	ProductsDaoImpl productsDao = DAOFactory.getProductsDaoInstance();
-
+	GoodsDaoImpl goodsDao = DAOFactory.getGoodsDaoInstance();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -38,17 +40,25 @@ public class ProductsListServlet extends HttpServlet {
 	}
 
 	/**
+	 * @throws UnsupportedEncodingException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("utf-8");
 		// TODO Auto-generated method stub
 		String type = request.getParameter("type");
 		if (StringUtil.isNotEmpty(type)) {
 			if (type.equals("idlist")) {
 				idList(request, response);
+			}
+			if (type.equals("goodsidsearch")){
+				try {
+					goodsidSearch(request,response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			if (type.equals("idsearch")) {
 				idSearch(request, response);
@@ -105,6 +115,57 @@ public class ProductsListServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+	protected void goodsidSearch(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		String goodscode = request.getParameter("goodscode");
+		System.out.println("????");
+		if (StringUtil.isEmpty(goodscode)){return;} 
+		ResultSet rs;
+		rs = goodsDao.goodsidSearch(dbUtil.createConn2(),goodscode);
+		int pdtid=0;
+		boolean flag=false;
+		while(rs.next()){
+			pdtid=rs.getInt("products_id");
+			flag=true;
+		}
+		if (!flag){
+			System.out.print("what??");
+			JSONObject result = new JSONObject();
+			JSONObject data=new JSONObject();
+			data.put("id", "没有数据");
+			result.put("rows",data);
+			result.put("total",1);
+			ResponseUtil.write(response, result);
+			return;
+		}else{
+		String page = request.getParameter("page");
+		String rows = request.getParameter("rows");
+		int searchid=pdtid;
+		System.out.println("searchid:  "+searchid);
+		Connection con = null;
+		con = dbUtil.createConn2();
+		try {
+			System.out.println("connection succses");
+			JSONObject result = new JSONObject();
+			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(productsDao.idSearch(con,searchid));
+			System.out.println(jsonArray);
+			int total = 1;
+			System.out.println(total);
+			result.put("rows", jsonArray);
+			result.put("total", total);
+			System.out.println(result);
+			ResponseUtil.write(response, result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		}
 	}
 	protected void idSearch(HttpServletRequest request, HttpServletResponse response) {

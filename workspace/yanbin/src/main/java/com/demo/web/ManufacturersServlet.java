@@ -2,6 +2,8 @@ package com.demo.web;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,6 +47,9 @@ public class ManufacturersServlet extends HttpServlet {
 			if (type.equals("idlist")) {
 				idList(request, response);
 			}
+			if(type.equals("idsearch")){
+				idSearch(request,response);
+			}
 			if (type.equals("list")) {
 				list(request, response);
 			}
@@ -76,9 +81,6 @@ public class ManufacturersServlet extends HttpServlet {
 			System.out.println("connection succses");
 			JSONObject result = new JSONObject();
 			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(manufacturersDao.idList(con));
-			System.out.println(jsonArray);
-			System.out.println(result);
-			// response.setHeader("Access-Control-Allow-Origin", "*");
 			ResponseUtil.write(response, jsonArray);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,7 +95,31 @@ public class ManufacturersServlet extends HttpServlet {
 	}
 
 	
-	
+	protected void idSearch(HttpServletRequest request, HttpServletResponse response) {
+		int searchid=Integer.parseInt(request.getParameter("searchid"));
+		Connection con = null;
+		con = dbUtil.createConn2();
+		try {
+			JSONObject result = new JSONObject();
+			JSONArray jsonArray = JsonUtil.formatRsToJsonArray(manufacturersDao.idSearch(con,searchid));
+			System.out.println(jsonArray);
+			int total = 1;
+			System.out.println(total);
+			result.put("rows", jsonArray);
+			result.put("total", total);
+			System.out.println(result);
+			ResponseUtil.write(response, result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	} 
 	protected void list(HttpServletRequest request, HttpServletResponse response) {
 		String page = request.getParameter("page");
 		String rows = request.getParameter("rows");

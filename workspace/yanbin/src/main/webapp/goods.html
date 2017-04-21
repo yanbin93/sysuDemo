@@ -66,6 +66,7 @@
                 }
             });
         }
+        function sort_int(a,b){return (a>b?-1:1);}
     </script>
 </head>
 <body>
@@ -76,7 +77,7 @@
         <thead>
             <tr>
             	<th field="id" width="50" hidden="true">商品id</th>
-                <th field="goods_name" width="50" >商品名称</th>
+                <th field="goods_name" width="50" sortable="true" sorter="sort_int" >商品名称</th>
                 <th field="goods_code" width="50">商品编号</th>
                 <th field="goods_other" width="50">商品备注</th>
                 <th field="products_id" width="50">产品批次号</th>
