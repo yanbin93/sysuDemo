@@ -16,6 +16,7 @@ import com.demo.factory.DAOFactory;
 import com.demo.model.PageBean;
 import com.demo.model.Products;
 import com.demo.util.DBUtils;
+import com.demo.util.JDBCToHiveUtils;
 import com.demo.util.JsonUtil;
 import com.demo.util.ResponseUtil;
 import com.demo.util.StringUtil;
@@ -122,11 +123,11 @@ public class ProductsListServlet extends HttpServlet {
 		System.out.println("????");
 		if (StringUtil.isEmpty(goodscode)){return;} 
 		ResultSet rs;
-		rs = goodsDao.goodsidSearch(dbUtil.createConn2(),goodscode);
+		rs = goodsDao.goodsidSearch(JDBCToHiveUtils.getConnnection(),goodscode);
 		int pdtid=0;
 		boolean flag=false;
 		while(rs.next()){
-			pdtid=rs.getInt("products_id");
+			pdtid=rs.getInt("productid");
 			flag=true;
 		}
 		if (!flag){

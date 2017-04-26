@@ -27,4 +27,7 @@ public class DAOFactory {
 	public static Records_checkDaoImpl getRecords_checkDaoInstance(){
 		return new Records_checkDaoImpl();
 	}
+	public static TestGoodsDaoImpl getTestGoodsDaoInstance(){
+		return new TestGoodsDaoImpl();
+	}
 }

@@ -14,10 +14,10 @@
   
  	   $(function(){
  			 $('#dg').edatagrid({
-            url: 'productsList?type=list',
-            saveUrl: 'productsList?type=save',
-            updateUrl: 'productsList?type=save',
-            destroyUrl: 'productsList?type=delete'
+            url: 'testGoodsServlet?type=list',
+            saveUrl: 'testGoodsServlet?type=save',
+            updateUrl: 'testGoodsServlet?type=save',
+            destroyUrl: 'testGoodsServlet?type=delete'
         });
  			 $('#PageRefresh').click(function() {
  		         location.reload();});
@@ -27,28 +27,28 @@
   		 var searchid=$("#searchid").val();
   		 if (searchid==""){$.messager.alert("系统提示","请输入批次号！！！");return;}
   		  $('#dg').datagrid({
-  	           url: 'productsList?type=idsearch&searchid='+searchid
+  	           url: 'testGoodsServlet?type=idsearch&searchid='+searchid
   	       });
   	  }
  	  function searchName(){
    		 var searchname=$("#searchname").val();
    		 if (searchname==""){$.messager.alert("系统提示","请输入产品名称！！！");return;}
    		  $('#dg').datagrid({
-   	           url: 'productsList?type=namesearch&searchname='+searchname
+   	           url: 'testGoodsServlet?type=namesearch&searchname='+searchname
    	       });
    	  }
     </script>
 </head>
 <body>
-<div>
     <table id="dg" title="用户管理" class="easyui-datagrid"
             toolbar="#toolbar" pagination="true" idField="id" 
-            rownumbers="true" fitColumns="true" singleSelect="false">
+            rownumbers="true" fitColumns="true" singleSelect="false"  sortOrder="asc" >
         <thead>
             <tr>
             	<th data-options="field:'ck',checkbox:true"></th>
-                <th field="products_name" width="50" editor="{type:'validatebox',options:{required:true}}" editor="{type:'validatebox',options:{required:true}}" >产品名称</th>
-                <th field="products_other" width="50" editor="{type:'validatebox',options:{required:false}}">产品备注</th>
+                <th field="productname" width="50" sortable="true" editor="{type:'validatebox',options:{required:true}}" editor="{type:'validatebox',options:{required:true}}" >商品名称</th>
+                <th field="productid" width="50" editor="{type:'validatebox',options:{required:false}}">产品备注</th>
+                <th field="productno" width="50" editor="{type:'validatebox',options:{required:false}}">货号</th>
                 <th field="manufacturer_id" width="50"  editor="{
                               type:'combobox',
                               options:{
@@ -76,10 +76,9 @@
                                   required:'true',
                                   panelHeight:'auto'
                               }}">供应商id</th>
-  </tr>
+  
         </thead>
     </table>
-    </div>
      <div id="toolbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">添加</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除</a>

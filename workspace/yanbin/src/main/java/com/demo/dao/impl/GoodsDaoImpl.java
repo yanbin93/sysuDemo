@@ -15,7 +15,7 @@ public ResultSet list(Connection con,PageBean pageBean) throws Exception{
 	return pstmt.executeQuery();
 }
 public ResultSet goodsidSearch(Connection con,String goodscode) throws Exception{
-	String sql = "select products_id from goods where goods_code=?";
+	String sql = "select productid from hivegoodstest where goodsid=?";
 	PreparedStatement pstmt=con.prepareStatement(sql);
 	pstmt.setString(1, goodscode);
 	return pstmt.executeQuery();
