@@ -58,6 +58,15 @@ import com.demo.model.TestGoods;
 				if (type.equals("idsearch")) {
 					idSearch(request, response);
 				}
+				if (type.equals("topnlist")) {
+					topN(request, response);
+				}
+				if (type.equals("topn")) {
+					topN(request, response);
+				}
+				if (type.equals("avg")) {
+					avg(request, response);
+				}
 				if (type.equals("namesearch")) {
 					nameSearch(request, response);
 				}
@@ -222,6 +231,101 @@ import com.demo.model.TestGoods;
 				}
 			}
 		}
+		protected void topN(HttpServletRequest request, HttpServletResponse response) {
+			String page = request.getParameter("page");
+			String rows = request.getParameter("rows");
+			String n=request.getParameter("n");
+			System.out.println("topn:  "+n);
+			Connection con = null;
+			con = dbUtil.getConnnection();
+			try {
+				System.out.println("connection succses");
+				JSONObject result = new JSONObject();
+				//String sql = "from (select productid as productid,count(productid) as total from product group by productid order by total desc limit "+n+
+						// ")as a,product select product.id as id,product.productname as productname,product.productcode as porductcode,a.productid as productid,a.total where a.productid=product.productid ";
+				String sql = "select cast(productid as string) as text,count(productid) as size from product group by productid order by size  desc limit "+n;
+				JSONArray jsonArray = JsonUtil.formatRsToJsonArray(testGoodsDao.query(con, sql));
+				System.out.println(jsonArray);
+				int total = 1;
+				System.out.println(total);
+				result.put("result", jsonArray);
+				//result.put("total", total);
+				System.out.println(result);
+				ResponseUtil.write(response, result);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		protected void topnList(HttpServletRequest request, HttpServletResponse response) {
+			String page = request.getParameter("page");
+			String rows = request.getParameter("rows");
+			String n=request.getParameter("n");
+			System.out.println("topn:  "+n);
+			Connection con = null;
+			con = dbUtil.getConnnection();
+			try {
+				System.out.println("connection succses");
+				JSONObject result = new JSONObject();
+				String sql = "from (select productid as productid,count(productid) as total from product group by productid order by total desc limit "+n+
+						 ")as a,product select product.id as id,product.productname as productname,product.productcode as porductcode,a.productid as productid,a.total where a.productid=product.productid ";
+				//String sql = "select cast(productid as string) as text,count(productid) as size from product group by productid order by size  desc limit "+n;
+				JSONArray jsonArray = JsonUtil.formatRsToJsonArray(testGoodsDao.query(con, sql));
+				System.out.println(jsonArray);
+				int total = 1;
+				System.out.println(total);
+				result.put("result", jsonArray);
+				//result.put("total", total);
+				System.out.println(result);
+				ResponseUtil.write(response, result);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		protected void avg(HttpServletRequest request, HttpServletResponse response) {
+			String page = request.getParameter("page");
+			String rows = request.getParameter("rows");
+			String n=request.getParameter("n");
+			System.out.println("topn:  "+n);
+			Connection con = null;
+			con = dbUtil.getConnnection();
+			try {
+				System.out.println("connection succses");
+				JSONObject result = new JSONObject();
+				//String sql = "from (select productid as productid,count(productid) as total from yanbin.product group by productid) as a select avg(total) as average";
+				String sql = "from (select productid as productid,count(productid) as total from yanbin.product group by productid) as a select avg(total) as average";
+				JSONArray jsonArray = JsonUtil.formatRsToJsonArray(testGoodsDao.query(con, sql));
+				System.out.println(jsonArray);
+				int total = 1;
+				System.out.println(total);
+				result.put("rows", jsonArray);
+				result.put("total", total);
+				System.out.println(result);
+				ResponseUtil.write(response, result);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		protected void list(HttpServletRequest request, HttpServletResponse response) {
 			String page = request.getParameter("page");
@@ -234,7 +338,8 @@ import com.demo.model.TestGoods;
 				JSONObject result = new JSONObject();
 				JSONArray jsonArray = JsonUtil.formatRsToJsonArray(testGoodsDao.list(con, pageBean));
 				System.out.println(jsonArray);
-				int total = testGoodsDao.count(con);
+//				int total = testGoodsDao.count(con);
+				int total = 98462;
 				System.out.println(total);
 				result.put("rows", jsonArray);
 				result.put("total", total);

@@ -1,55 +1,76 @@
-<!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>Basic DataGrid - jQuery EasyUI Demo</title>
-<link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/default/easyui.css">  
+  <head>
+        <meta charset="utf-8">
+        <title>testD3-8-drawBar.html</title>
+      <link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/default/easyui.css">  
 <link rel="stylesheet" type="text/css" href="js/jquery/easyui/themes/icon.css">  
 <link rel="stylesheet" type="text/css" href="js/jquery/easyui/demo/demo.css">  
 <script type="text/javascript" src="js/jquery/easyui/jquery.min.js"></script>  
 <script type="text/javascript" src="js/jquery/easyui/jquery.easyui.min.js"></script>  
-	<script type="text/javascript" src="js/jquery/easyui/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="js/jquery/easyui/jquery.edatagrid.js"></script>
-	<script>
-		 $(function(){
-	         $('#dg').edatagrid({
-	             url: 'goodsList',
-	             saveUrl: 'goodsSave',
-	             updateUrl: 'goodsSave',
-	             destroyUrl: 'goodsDelete'
-	         });
-	        
-	     });
-		 
-	</script>
-</head>
-<body>
-    <table id="dg" title="用户管理" style="width:700px;height:365px"
-            toolbar="#toolbar" pagination="true" idField="id"
-            rownumbers="true" fitColumns="true" singleSelect="true">
-        <thead>
-            <tr>
-                <th field="goods_name" width="50" editor="{type:'validatebox',options:{required:true}}">商品名称</th>
-                <th field="goods_code" width="50" editor="{type:'validatebox',options:{required:true}}">商品编号</th>
-                <th field="goods_other" width="50" editor="{type:'validatebox',options:{required:true}}">商品备注</th>
-                <th field="products_id" width="50" editor="{
-	                            type:'combobox',
-	                            options:{
-	                                valueField:'id',
-	                                textField:'cnt',
-	                                url:'productsList?type=idlist',
-	                                required:true
-	                            }}">产品批次号</th>
-            </tr>
-        </thead>
-    </table>
-    
-    <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:$('#dg').edatagrid('addRow')">添加</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="javascript:$('#dg').edatagrid('destroyRow')">删除</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:$('#dg').edatagrid('saveRow')">保存</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-undo" plain="true" onclick="javascript:$('#dg').edatagrid('cancelRow')">撤销</a>
-    </div>
+    <script type="text/javascript" src="js/jquery/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="js/jquery/easyui/jquery.edatagrid.js"></script>
+            <script type="text/javascript" src="js/jquery/d3/d3.js"></script>
+                 <script type="text/javascript" src="js/jquery/d3/d3.layout.cloud.js"></script>
+    <style type="text/css">
+        </style>
+    </head>
+    <body>
+     <input id="n" name="searchname" class="easyui-validatebox" required="true"  style="width: 200px;" >
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="javascript:topN()">批次销量方差</a>
+     <div  class="div" style="width:100%;height:100%; padding:100px;">
+   <div id="pic" ></div>
+   </div>
+	 <script type="text/javascript">
 
-</body>
+	 function topN(){
+		 var n=$("#n").val();
+		 if (n==""){$.messager.alert("系统提示","请输入产品名称！！！");return;}
+    var fill = d3.scale.category20();
+    var topurl="testGoodsServlet?type=topn&n="+n;
+    d3.json(topurl, function(data) {
+    	 // alert(data.result);
+        d3.layout.cloud().size([500, 500]).words(
+          data.result
+          )
+          .rotate(function() {
+            return ~~(Math.random() * 2) * 90;
+          })
+          .font("Impact")
+          .fontSize(function(d) {
+            return d.size*0.5;
+          })
+          .on("end", draw)
+          .start();
+
+        function draw(words) {
+          console.log(words);
+          d3.select("#pic").append("svg")
+            .attr("width", 1000)
+            .attr("height", 1000)
+            .append("g")
+            .attr("transform", "translate(150,150)")
+            .selectAll("text")
+            .data(words)
+            .enter().append("text")
+             .style("border","3px solid blue")
+            .style("font-size", function(d) {
+              return d.size + "px";
+            })
+            .style("font-family", "Impact")
+            .style("fill", function(d, i) {
+              return fill(i);
+            })
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d) {
+              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) {
+              return d.text;
+            });
+        }
+      });
+          }
+  </script>
+
+    </body>
 </html>
